@@ -1,0 +1,38 @@
+{
+  "name": "playwright-typescript-automation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "tsc --noEmit",
+    "check-style": "npx prettier . --check",
+    "lint": "npx eslint .",
+    "allChecks": "npm audit && tsc --noEmit && npx prettier . --check && npx eslint .",
+    "test": "npx playwright test",
+    "allureReport": "npx allure generate ./allure-results --clean  && npx allure open ./allure-report"
+  },
+  "keywords": [],
+  "author": "fifernandez",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "@faker-js/faker": "^9.6.0",
+    "@playwright/test": "^1.51.0",
+    "@types/node": "^22.13.10",
+    "@typescript-eslint/eslint-plugin": "^8.26.1",
+    "@typescript-eslint/parser": "^8.26.1",
+    "ajv": "^8.17.1",
+    "allure-commandline": "^2.33.0",
+    "allure-playwright": "^3.2.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-playwright": "^2.2.0",
+    "globals": "^16.0.0",
+    "ortoni-report": "^2.0.9",
+    "prettier": "3.5.3",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.26.1"
+  }
+}
