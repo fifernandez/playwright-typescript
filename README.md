@@ -2,6 +2,11 @@
 
 This is a [Playwright](https://playwright.dev/) project for runing End-To-End automated test. With this, you can do frontend and backend test, or a mix of both.
 
+| Job        | Status  | Reports |
+| ---------- | ------- | ------- |
+| Smoke      | [![Smoke Tests](https://github.com/fifernandez/playwright-typescript/actions/workflows/smoke-tests.yml/badge.svg)](https://github.com/fifernandez/playwright-typescript/actions/workflows/smoke-tests.yml)                | [<img src="https://avatars.githubusercontent.com/u/5879127?s=200&v=4" width="25" alt="Allure Report"/>](https://fifernandez.github.io/playwright-typescript/allure/smoke) [<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/playwright/playwright-original.svg" width="25" alt="Playwright Report"/>](https://fifernandez.github.io/playwright-typescript/playwright/smoke) [<img src="https://cdn-icons-png.freepik.com/256/17258/17258058.png?semt=ais_hybrid" width="25" alt="Ortoni Report"/>](https://fifernandez.github.io/playwright-typescript/ortoni/smoke)            |
+| Regression | [![Regression Tests](https://github.com/fifernandez/playwright-typescript/actions/workflows/regression-tests.yml/badge.svg)](https://github.com/fifernandez/playwright-typescript/actions/workflows/regression-tests.yml) | [<img src="https://avatars.githubusercontent.com/u/5879127?s=200&v=4" width="25" alt="Allure Report"/>](https://fifernandez.github.io/playwright-typescript/allure/regression) [<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/playwright/playwright-original.svg" width="25" alt="Playwright Report"/>](https://fifernandez.github.io/playwright-typescript/allure/regression) [<img src="https://cdn-icons-png.freepik.com/256/17258/17258058.png?semt=ais_hybrid" width="25" alt="Ortoni Report"/>](https://fifernandez.github.io/playwright-typescript/allure/regression) |
+
 - For UI tests is using: [demoblaze](https://www.demoblaze.com/)
 - For backend tests is using: [jsonplaceholder](https://jsonplaceholder.typicode.com/)
 

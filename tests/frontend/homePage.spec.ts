@@ -3,7 +3,7 @@ import { test } from '../../helpers/tests-fixtures';
 import { expect } from '@playwright/test';
 
 test(
-  'Jira-001 | Verify invalid phones are not visible',
+  'Verify invalid phones are not visible',
   { tag: ['@Regression', '@desktop', '@mobile'] },
   async ({ pageManager }) => {
     await pageManager.homePage.phones.click();
