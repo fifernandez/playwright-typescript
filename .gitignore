@@ -1,0 +1,14 @@
+#Node
+node_modules/
+
+#Reports & Results
+/test-results/
+/playwright-report/
+/allure-results/
+/allure-report/
+/blob-report/
+/playwright/.cache/
+/ortoni-report/
+
+# files system
+.DS_Store
