@@ -1,0 +1,160 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Verify Successful login
+- Location: /home/runner/work/playwright-typescript/playwright-typescript/tests/frontend/login.spec.ts:6:5
+
+# Error details
+
+```
+Error: Verify login button is no longer visible
+
+Timed out 5000ms waiting for expect(locator).toBeHidden()
+
+Locator: locator('a[id="login2"]')
+Expected: hidden
+Received: visible
+Call log:
+  - Verify login button is no longer visible with timeout 5000ms
+  - waiting for locator('a[id="login2"]')
+    9 × locator resolved to <a href="#" id="login2" class="nav-link" data-toggle="modal" data-target="#logInModal">Log in</a>
+      - unexpected value "visible"
+
+    at /home/runner/work/playwright-typescript/playwright-typescript/tests/frontend/login.spec.ts:15:90
+```
+
+# Page snapshot
+
+```yaml
+- dialog "Log in":
+  - document:
+    - heading "Log in" [level=5]
+    - button "Close"
+    - text: "Username:"
+    - textbox: ff-test
+    - text: "Password:"
+    - textbox: "123456"
+    - button "Close"
+    - button "Log in"
+- navigation:
+  - link "PRODUCT STORE":
+    - img
+    - text: PRODUCT STORE
+  - list:
+    - listitem:
+      - link "Home (current)"
+    - listitem:
+      - link "Contact"
+    - listitem:
+      - link "About us"
+    - listitem:
+      - link "Cart"
+    - listitem:
+      - link "Log in"
+    - listitem
+    - listitem
+    - listitem:
+      - link "Sign up"
+  - list:
+    - listitem
+    - listitem
+    - listitem
+  - img "Second slide"
+  - button "Previous"
+  - button "Next"
+- link "CATEGORIES"
+- link "Phones"
+- link "Laptops"
+- link "Monitors"
+- link
+- heading "Samsung galaxy s6" [level=4]:
+  - link "Samsung galaxy s6"
+- heading "$360" [level=5]
+- paragraph: The Samsung Galaxy S6 is powered by 1.5GHz octa-core Samsung Exynos 7420 processor and it comes with 3GB of RAM. The phone packs 32GB of internal storage cannot be expanded.
+- link
+- heading "Nokia lumia 1520" [level=4]:
+  - link "Nokia lumia 1520"
+- heading "$820" [level=5]
+- paragraph: The Nokia Lumia 1520 is powered by 2.2GHz quad-core Qualcomm Snapdragon 800 processor and it comes with 2GB of RAM.
+- link
+- heading "Nexus 6" [level=4]:
+  - link "Nexus 6"
+- heading "$650" [level=5]
+- paragraph: The Motorola Google Nexus 6 is powered by 2.7GHz quad-core Qualcomm Snapdragon 805 processor and it comes with 3GB of RAM.
+- link
+- heading "Samsung galaxy s7" [level=4]:
+  - link "Samsung galaxy s7"
+- heading "$800" [level=5]
+- paragraph: The Samsung Galaxy S7 is powered by 1.6GHz octa-core it comes with 4GB of RAM. The phone packs 32GB of internal storage that can be expanded up to 200GB via a microSD card.
+- link
+- heading "Iphone 6 32gb" [level=4]:
+  - link "Iphone 6 32gb"
+- heading "$790" [level=5]
+- paragraph: It comes with 1GB of RAM. The phone packs 16GB of internal storage cannot be expanded. As far as the cameras are concerned, the Apple iPhone 6 packs a 8-megapixel primary camera on the rear and a 1.2-megapixel front shooter for selfies.
+- link
+- heading "Sony xperia z5" [level=4]:
+  - link "Sony xperia z5"
+- heading "$320" [level=5]
+- paragraph: Sony Xperia Z5 Dual smartphone was launched in September 2015. The phone comes with a 5.20-inch touchscreen display with a resolution of 1080 pixels by 1920 pixels at a PPI of 424 pixels per inch.
+- link
+- heading "HTC One M9" [level=4]:
+  - link "HTC One M9"
+- heading "$700" [level=5]
+- paragraph: The HTC One M9 is powered by 1.5GHz octa-core Qualcomm Snapdragon 810 processor and it comes with 3GB of RAM. The phone packs 32GB of internal storage that can be expanded up to 128GB via a microSD card.
+- link
+- heading "Sony vaio i5" [level=4]:
+  - link "Sony vaio i5"
+- heading "$790" [level=5]
+- paragraph: Sony is so confident that the VAIO S is a superior ultraportable laptop that the company proudly compares the notebook to Apple's 13-inch MacBook Pro. And in a lot of ways this notebook is better, thanks to a lighter weight.
+- link
+- heading "Sony vaio i7" [level=4]:
+  - link "Sony vaio i7"
+- heading "$790" [level=5]
+- paragraph: REVIEW Sony is so confident that the VAIO S is a superior ultraportable laptop that the company proudly compares the notebook to Apple's 13-inch MacBook Pro. And in a lot of ways this notebook is better, thanks to a lighter weight, higher-resolution display, more storage space, and a Blu-ray drive.
+- list:
+  - listitem:
+    - button "Previous"
+  - listitem:
+    - button "Next"
+- heading "About Us" [level=4]
+- paragraph: We believe performance needs to be validated at every stage of the software development cycle and our open source compatible, massively scalable platform makes that a reality.
+- heading "Get in Touch" [level=4]
+- paragraph: "Address: 2390 El Camino Real"
+- paragraph: "Phone: +440 123456"
+- paragraph: "Email: demo@blazemeter.com"
+- heading "PRODUCT STORE" [level=4]:
+  - img
+  - text: PRODUCT STORE
+- contentinfo:
+  - paragraph: Copyright © Product Store 2017
+```
+
+# Test source
+
+```ts
+   1 | /* eslint-disable playwright/no-wait-for-timeout */
+   2 | import { test } from '../../helpers/tests-fixtures';
+   3 | import { expect } from '@playwright/test';
+   4 | import GlobalVars from '../../helpers/globalVars';
+   5 |
+   6 | test(
+   7 |   'Verify Successful login',
+   8 |   {
+   9 |     tag: ['@Smoke', '@desktop', '@mobile'],
+  10 |   },
+  11 |   async ({ pageManager }) => {
+  12 |     await pageManager.homePage.login.click();
+  13 |     await pageManager.loginPage.loginUser(GlobalVars.USERNAME, GlobalVars.PASSWORD);
+  14 |     await pageManager.homePage.page.waitForTimeout(2000);
+> 15 |     await expect(pageManager.homePage.login, 'Verify login button is no longer visible').toBeHidden();
+     |                                                                                          ^ Error: Verify login button is no longer visible
+  16 |     await expect(pageManager.homePage.logout, 'Verify logout button is visible').toBeVisible();
+  17 |   },
+  18 | );
+  19 |
+```
