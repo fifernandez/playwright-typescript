@@ -1,0 +1,53 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Verify Successful login
+- Location: /home/runner/work/playwright-typescript/playwright-typescript/tests/frontend/login.spec.ts:6:5
+
+# Error details
+
+```
+Error: locator.click: Test timeout of 30000ms exceeded.
+Call log:
+  - waiting for locator('a[id="login2"]')
+
+    at /home/runner/work/playwright-typescript/playwright-typescript/tests/frontend/login.spec.ts:12:38
+```
+
+# Page snapshot
+
+```yaml
+- 'heading "Error: Page not found" [level=1]'
+- heading "The requested URL was not found on this server." [level=2]
+- heading [level=2]
+```
+
+# Test source
+
+```ts
+   1 | /* eslint-disable playwright/no-wait-for-timeout */
+   2 | import { test } from '../../helpers/tests-fixtures';
+   3 | import { expect } from '@playwright/test';
+   4 | import GlobalVars from '../../helpers/globalVars';
+   5 |
+   6 | test(
+   7 |   'Verify Successful login',
+   8 |   {
+   9 |     tag: ['@Smoke', '@desktop', '@mobile'],
+  10 |   },
+  11 |   async ({ pageManager }) => {
+> 12 |     await pageManager.homePage.login.click();
+     |                                      ^ Error: locator.click: Test timeout of 30000ms exceeded.
+  13 |     await pageManager.loginPage.loginUser(GlobalVars.USERNAME, GlobalVars.PASSWORD);
+  14 |     await pageManager.homePage.page.waitForTimeout(2000);
+  15 |     await expect(pageManager.homePage.login, 'Verify login button is no longer visible').toBeHidden();
+  16 |     await expect(pageManager.homePage.logout, 'Verify logout button is visible').toBeVisible();
+  17 |   },
+  18 | );
+  19 |
+```
