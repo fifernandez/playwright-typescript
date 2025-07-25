@@ -1,0 +1,53 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Verify invalid phones are not visible
+- Location: /home/runner/work/playwright-typescript/playwright-typescript/tests/frontend/homePage.spec.ts:5:5
+
+# Error details
+
+```
+Error: locator.click: Test timeout of 30000ms exceeded.
+Call log:
+  - waiting for getByRole('link', { name: 'Phones' })
+
+    at /home/runner/work/playwright-typescript/playwright-typescript/tests/frontend/homePage.spec.ts:9:39
+```
+
+# Page snapshot
+
+```yaml
+- 'heading "Error: Page not found" [level=1]'
+- heading "The requested URL was not found on this server." [level=2]
+- heading [level=2]
+```
+
+# Test source
+
+```ts
+   1 | /* eslint-disable playwright/no-wait-for-timeout */
+   2 | import { test } from '../../helpers/tests-fixtures';
+   3 | import { expect } from '@playwright/test';
+   4 |
+   5 | test(
+   6 |   'Verify invalid phones are not visible',
+   7 |   { tag: ['@Regression', '@desktop', '@mobile'] },
+   8 |   async ({ pageManager }) => {
+>  9 |     await pageManager.homePage.phones.click();
+     |                                       ^ Error: locator.click: Test timeout of 30000ms exceeded.
+  10 |     await pageManager.homePage.page.waitForTimeout(3000);
+  11 |     const allCards = await pageManager.homePage.cardTitle.all();
+  12 |
+  13 |     for (let i = 0; i < allCards.length; i++) {
+  14 |       const cardTitle = await allCards[i].innerText();
+  15 |       expect(cardTitle, "Phone with name 'Invalid Phone' is visible").not.toContain('Invalid Phone');
+  16 |     }
+  17 |   },
+  18 | );
+  19 |
+```
