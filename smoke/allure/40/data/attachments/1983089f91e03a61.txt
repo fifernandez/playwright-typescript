@@ -1,0 +1,52 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Verify Successful login
+- Location: /home/runner/work/playwright-typescript/playwright-typescript/tests/frontend/login.spec.ts:6:5
+
+# Error details
+
+```
+Error: Verify login button is no longer visible
+
+Timed out 5000ms waiting for expect(locator).toBeHidden()
+
+Locator: locator('a[id="login2"]')
+Expected: hidden
+Received: undefined
+Call log:
+  - Verify login button is no longer visible with timeout 5000ms
+  - waiting for locator('a[id="login2"]')
+
+    at /home/runner/work/playwright-typescript/playwright-typescript/tests/frontend/login.spec.ts:15:90
+```
+
+# Test source
+
+```ts
+   1 | /* eslint-disable playwright/no-wait-for-timeout */
+   2 | import { test } from '../../helpers/tests-fixtures';
+   3 | import { expect } from '@playwright/test';
+   4 | import GlobalVars from '../../helpers/globalVars';
+   5 |
+   6 | test(
+   7 |   'Verify Successful login',
+   8 |   {
+   9 |     tag: ['@Smoke', '@desktop', '@mobile'],
+  10 |   },
+  11 |   async ({ pageManager }) => {
+  12 |     await pageManager.homePage.login.click();
+  13 |     await pageManager.loginPage.loginUser(GlobalVars.USERNAME, GlobalVars.PASSWORD);
+  14 |     await pageManager.homePage.page.waitForTimeout(2000);
+> 15 |     await expect(pageManager.homePage.login, 'Verify login button is no longer visible').toBeHidden();
+     |                                                                                          ^ Error: Verify login button is no longer visible
+  16 |     await expect(pageManager.homePage.logout, 'Verify logout button is visible').toBeVisible();
+  17 |   },
+  18 | );
+  19 |
+```
