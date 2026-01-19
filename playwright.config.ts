@@ -1,7 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 import GlobalVars from './helpers/globalVars';
 import allureConfig from './config/allureConfig';
-import ortoniReportConfig from './config/ortoniReportConfig';
 
 export default defineConfig({
   timeout: 30000,
@@ -17,7 +16,6 @@ export default defineConfig({
     ['json', { outputFile: 'test-results/jsonReport.json' }],
     ['junit', { outputFile: 'test-results/jsonReport.xml' }],
     ['allure-playwright', allureConfig],
-    ['ortoni-report', ortoniReportConfig],
   ],
   use: {
     baseURL: GlobalVars.FRONTEND_BASE_URL,
