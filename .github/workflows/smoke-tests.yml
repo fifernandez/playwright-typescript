@@ -23,7 +23,7 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test --grep=@Smoke
       - name: Publish JUnit Test Report
-        uses: mikepenz/action-junit-report@v5
+        uses: mikepenz/action-junit-report@v6
         if: success()
         with:
           report_paths: '**/test-results/jsonReport.xml'
@@ -41,7 +41,7 @@ jobs:
           ref: reports
           path: reports/allure/smoke
       - name: Build Allure Report
-        uses: simple-elf/allure-report-action@v1.12
+        uses: simple-elf/allure-report-action@master
         if: always()
         id: allure-report
         with:
