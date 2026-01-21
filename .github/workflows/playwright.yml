@@ -17,7 +17,7 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
       - name: Publish JUnit Test Report
-        uses: mikepenz/action-junit-report@v5
+        uses: mikepenz/action-junit-report@v6
         if: success()
         with:
           report_paths: '**/test-results/jsonReport.xml'
