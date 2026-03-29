@@ -64,3 +64,13 @@ jobs:
           folder: smoke/allure/allure-history
           clean: false
           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy Playwright HTML report to reports branch (smoke)
+        if: always()
+        continue-on-error: true
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: reports
+          folder: playwright-report
+          target-folder: smoke/playwright
+          clean: false
+          token: ${{ secrets.GITHUB_TOKEN }}
