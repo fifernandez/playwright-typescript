@@ -1,27 +1,32 @@
 name: Playwright Tests
 on:
   workflow_dispatch:
+
+env:
+  PLAYWRIGHT_IMAGE: mcr.microsoft.com/playwright:v1.58.2-noble
+
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-      - name: Install dependencies
-        run: npm ci
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+      - uses: actions/checkout@v6
       - name: Run Playwright tests
-        run: npx playwright test
+        run: |
+          docker run --rm \
+            --ipc=host \
+            --user "$(id -u):$(id -g)" \
+            -v "${{ github.workspace }}:/work" \
+            -w /work \
+            -e CI \
+            "${{ env.PLAYWRIGHT_IMAGE }}" \
+            bash -ec "npm ci && npx playwright test"
       - name: Publish JUnit Test Report
         uses: mikepenz/action-junit-report@v6
         if: success()
         with:
           report_paths: '**/test-results/jsonReport.xml'
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
