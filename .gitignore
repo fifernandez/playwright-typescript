@@ -1,7 +1,4 @@
-#Node
 node_modules/
-
-#Reports & Results
 /test-results/
 /playwright-report/
 /allure-results/
@@ -12,3 +9,11 @@ node_modules/
 
 # files system
 .DS_Store
+.github/
+.vscode/
+.cursor/
+.cursorignore
+.cursorindexingignore
+/specs/
+seed.spec.ts
+.specstory/

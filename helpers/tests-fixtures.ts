@@ -1,7 +1,8 @@
 import { test as baseTest } from '@playwright/test';
+
 import { PageManager } from '../page-objects/pageManager';
 
-export type TestOptions = {
+type TestOptions = {
   goToHomePage: string;
   pageManager: PageManager;
   isPhone: boolean;

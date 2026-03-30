@@ -1,6 +1,7 @@
 /* eslint-disable playwright/no-wait-for-timeout */
-import { test } from '../../helpers/tests-fixtures';
 import { expect } from '@playwright/test';
+
+import { test } from '../../helpers/tests-fixtures';
 
 test(
   'Verify invalid phones are not visible',

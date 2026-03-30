@@ -1,0 +1,4 @@
+npm run pretest
+npm run check-style
+npm run lint
+npm run knip
