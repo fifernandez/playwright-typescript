@@ -5,6 +5,7 @@
   "scripts": {
     "pretest": "tsc --noEmit",
     "check-style": "npx prettier . --check",
+    "format": "npx prettier . --write",
     "lint": "npx eslint .",
     "allChecks": "npm audit && tsc --noEmit && npx prettier . --check && npx eslint .",
     "test": "npx playwright test",

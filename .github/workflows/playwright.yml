@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
 
 env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
   PLAYWRIGHT_IMAGE: mcr.microsoft.com/playwright:v1.58.2-noble
 
 jobs:
@@ -10,7 +11,7 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
       - name: Run Playwright tests
         run: |
           docker run --rm \
@@ -22,11 +23,11 @@ jobs:
             "${{ env.PLAYWRIGHT_IMAGE }}" \
             bash -ec "npm ci && npx playwright test"
       - name: Publish JUnit Test Report
-        uses: mikepenz/action-junit-report@v6
+        uses: mikepenz/action-junit-report@v6.4.0
         if: success()
         with:
           report_paths: '**/test-results/jsonReport.xml'
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v7.0.0
         if: ${{ !cancelled() }}
         with:
           name: playwright-report

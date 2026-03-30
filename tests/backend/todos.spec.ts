@@ -9,6 +9,7 @@ test.describe('Todos endpoint', { tag: ['@backend'] }, () => {
     const response = await test.step('Do a GET to the Todos endpoint', async () => {
       return await request.get(todosPath);
     });
+
     const responseBody = await response.json();
     expect(response.status(), 'Verify response status is 200.').toEqual(200);
     await validateJsonSchema('todos-200', responseBody);
@@ -18,7 +19,8 @@ test.describe('Todos endpoint', { tag: ['@backend'] }, () => {
     const response = await test.step('Do a GET to the Todos endpoint', async () => {
       return await request.get(todosPath);
     });
+
     const responseBody = await response.json();
-    expect(responseBody.length, 'Verify the amount of returned items is 200').toEqual(200);
+    expect(responseBody.length, 'Verify the amount of returned items is 200').toHaveLength(200);
   });
 });
