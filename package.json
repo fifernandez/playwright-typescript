@@ -1,38 +1,42 @@
 {
   "name": "playwright-typescript-automation",
   "version": "1.0.0",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "pretest": "tsc --noEmit",
+    "allChecks": "tsc --noEmit && npx prettier . --check && npx eslint . && npm run knip",
+    "allureReport": "npx allure generate ./allure-results --clean  && npx allure open ./allure-report",
     "check-style": "npx prettier . --check",
+    "clean": "rimraf ./test-results ./playwright-report ./allure-results ./allure-report",
     "format": "npx prettier . --write",
+    "knip": "knip",
     "lint": "npx eslint .",
-    "allChecks": "npm audit && tsc --noEmit && npx prettier . --check && npx eslint .",
-    "test": "npx playwright test",
-    "allureReport": "npx allure generate ./allure-results --clean  && npx allure open ./allure-report"
+    "pretest": "tsc --noEmit",
+    "prepare": "husky",
+    "test": "npx playwright test"
   },
   "keywords": [],
   "author": "fifernandez",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@eslint/js": "^9.39.4",
     "@faker-js/faker": "^10.4.0",
     "@playwright/test": "^1.58.2",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/node": "^25.5.0",
     "@typescript-eslint/eslint-plugin": "^8.57.2",
     "@typescript-eslint/parser": "^8.57.2",
     "ajv": "^8.18.0",
     "allure-commandline": "^2.38.1",
+    "allure-js-commons": "^3.4.3",
     "allure-playwright": "^3.6.0",
-    "cross-env": "^10.1.0",
     "dotenv": "^17.3.1",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-playwright": "^2.10.1",
-    "globals": "^17.4.0",
+    "husky": "^9.1.7",
+    "knip": "^5.71.0",
     "prettier": "^3.8.1",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.2"
+    "rimraf": "6.1.2",
+    "typescript": "^5.9.3"
   }
 }

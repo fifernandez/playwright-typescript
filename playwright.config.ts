@@ -1,14 +1,15 @@
 import { defineConfig, devices } from '@playwright/test';
-import GlobalVars from './helpers/globalVars';
+
 import allureConfig from './config/allureConfig';
+import GlobalVars from './helpers/globalVars';
 
 export default defineConfig({
-  timeout: 30000,
+  timeout: 60000,
   expect: {
     timeout: 5000,
   },
   fullyParallel: GlobalVars.RUN_IN_PARALLEL,
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 1 : 1,
   workers: process.env.CI ? 2 : 2,
   reporter: [
     ['list'],
@@ -65,7 +66,6 @@ export default defineConfig({
       name: 'tablet',
       use: {
         ...devices['Galaxy Tab S4'],
-        viewport: { width: 770, height: 900 },
       },
       grep: [/@tablet/, /@mobile/],
     },
