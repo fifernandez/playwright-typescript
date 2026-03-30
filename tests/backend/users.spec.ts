@@ -9,6 +9,7 @@ test.describe('Users endpoint', { tag: ['@backend'] }, () => {
     const response = await test.step('Do a GET to the Users endpoint', async () => {
       return await request.get(usersPath);
     });
+
     const responseBody = await response.json();
     expect(response.status(), 'Verify response status is 200.').toEqual(200);
     await validateJsonSchema('users-200', responseBody);
@@ -18,7 +19,8 @@ test.describe('Users endpoint', { tag: ['@backend'] }, () => {
     const response = await test.step('Do a GET to the Users endpoint', async () => {
       return await request.get(usersPath);
     });
+
     const responseBody = await response.json();
-    expect(responseBody.length, 'Verify the amount of returned items is 10').toEqual(10);
+    expect(responseBody.length, 'Verify the amount of returned items is 10').toHaveLength(10);
   });
 });
