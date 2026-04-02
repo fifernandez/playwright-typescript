@@ -4,9 +4,9 @@
   "type": "module",
   "scripts": {
     "allChecks": "tsc --noEmit && npx prettier . --check && npx eslint . && npm run knip",
-    "allureReport": "npx allure generate ./allure-results --clean  && npx allure open ./allure-report",
+    "allureReport": "npx allure generate ./out/results/allure --clean -o ./out/reports/allure/static && npx allure open ./out/reports/allure/static",
     "check-style": "npx prettier . --check",
-    "clean": "rimraf ./test-results ./playwright-report ./allure-results ./allure-report",
+    "clean": "rimraf ./out",
     "format": "npx prettier . --write",
     "knip": "knip",
     "lint": "npx eslint .",
@@ -37,6 +37,7 @@
     "knip": "6.1.1",
     "prettier": "3.8.1",
     "rimraf": "6.1.3",
+    "ortoni-report": "4.0.8",
     "typescript": "6.0.2"
   }
 }
