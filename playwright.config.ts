@@ -1,9 +1,12 @@
 import { defineConfig, devices } from '@playwright/test';
 
 import allureConfig from './config/allureConfig';
+import ortoniReportConfig from './config/ortoniReportConfig';
+import { DataHelper } from './helpers/dataHelper';
 import GlobalVars from './helpers/globalVars';
 
 export default defineConfig({
+  outputDir: 'out/results/playwright',
   timeout: 60000,
   expect: {
     timeout: 5000,
@@ -13,10 +16,17 @@ export default defineConfig({
   workers: process.env.CI ? 2 : 2,
   reporter: [
     ['list'],
-    ['html', { open: 'never' }],
-    ['json', { outputFile: 'test-results/jsonReport.json' }],
-    ['junit', { outputFile: 'test-results/jsonReport.xml' }],
+    ['html', { open: 'never', outputFolder: 'out/reports/playwright' }],
+    ['json', { outputFile: 'out/reports/jsonReport.json' }],
+    ['junit', { outputFile: 'out/reports/junitReport.xml' }],
     ['allure-playwright', allureConfig],
+    ['ortoni-report', ortoniReportConfig],
+    [
+      'blob',
+      {
+        outputFile: `out/reports/blob-report/report-${DataHelper.getUniqueDateWithTime()}.zip`,
+      },
+    ],
   ],
   use: {
     baseURL: GlobalVars.FRONTEND_BASE_URL,

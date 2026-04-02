@@ -28,12 +28,18 @@ jobs:
         uses: mikepenz/action-junit-report@v6.4.0
         if: success()
         with:
-          report_paths: '**/test-results/jsonReport.xml'
+          report_paths: '**/out/reports/junitReport.xml'
       - uses: actions/upload-artifact@v7.0.0
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
-          path: playwright-report/
+          path: out/reports/playwright/
+          retention-days: 30
+      - uses: actions/upload-artifact@v7.0.0
+        if: ${{ !cancelled() }}
+        with:
+          name: ortoni-report
+          path: out/reports/ortoni/
           retention-days: 30
       - name: Get Allure Report history
         uses: actions/checkout@v6.0.2
@@ -47,7 +53,7 @@ jobs:
         if: always()
         id: allure-report
         with:
-          allure_results: allure-results
+          allure_results: out/results/allure
           gh_pages: reports/allure/regression
           allure_report: regression/allure/allure-report
           allure_history: regression/allure/allure-history
@@ -67,7 +73,17 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           branch: reports
-          folder: playwright-report
+          folder: out/reports/playwright
           target-folder: regression/playwright
+          clean: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy Ortoni report to reports branch (regression)
+        if: always()
+        continue-on-error: true
+        uses: JamesIves/github-pages-deploy-action@v4.8.0
+        with:
+          branch: reports
+          folder: out/reports/ortoni
+          target-folder: regression/ortoni
           clean: false
           token: ${{ secrets.GITHUB_TOKEN }}

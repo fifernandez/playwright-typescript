@@ -1,15 +1,9 @@
 node_modules/
-/test-results/
-/playwright-report/
-/allure-results/
-/allure-report/
-/blob-report/
+/out/
 /playwright/.cache/
-/ortoni-report/
 
 # files system
 .DS_Store
-.github/
 .vscode/
 .cursor/
 .cursorignore

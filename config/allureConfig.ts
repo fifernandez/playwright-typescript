@@ -2,7 +2,7 @@ import { Status } from 'allure-js-commons';
 import * as os from 'node:os';
 
 const allureConfig = {
-  resultsDir: 'allure-results',
+  resultsDir: 'out/results/allure',
   detail: true,
   suiteTitle: true,
   links: {

@@ -112,7 +112,7 @@ For seeing reports, after test execution run this commands.
 - Playwright:
 
   ```bash
-  npx playwright show-report
+  npx playwright show-report out/reports/playwright
   ```
 
 - Allure:
@@ -122,10 +122,12 @@ For seeing reports, after test execution run this commands.
   ```
 
 - Ortoni:
-  Under: ortoni-report/index.html
+  Under: `out/reports/ortoni/index.html`
 
 - Json and XML Junit:
-  Files are saved under /test-results after tests execution.
+  Under: `out/reports/` (`jsonReport.json`, `junitReport.xml`).
+
+- Test artifacts (screenshots, traces, videos) are saved under `out/results/playwright` after test execution.
 
 ## Learn More
 
