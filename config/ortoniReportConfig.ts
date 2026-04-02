@@ -5,7 +5,6 @@ const ortoniReportConfig: OrtoniReportConfig = {
   folderPath: 'out/reports/ortoni',
   filename: 'index.html',
   title: 'Automation Report',
-  showProject: !true,
   projectName: 'fifernandez - Playwright Typescript Automation',
   testType: 'Tests',
   authorName: 'Fran Fernandez',
