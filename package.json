@@ -18,6 +18,10 @@
   "author": "fifernandez",
   "license": "ISC",
   "description": "",
+  "overrides": {
+    "@tootallnate/once": "^3.0.1",
+    "tar": "^7.5.11"
+  },
   "devDependencies": {
     "@faker-js/faker": "10.4.0",
     "@playwright/test": "1.58.2",
