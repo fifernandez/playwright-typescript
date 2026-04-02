@@ -10,7 +10,7 @@ on:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-  PLAYWRIGHT_IMAGE: mcr.microsoft.com/playwright:v1.58.2-noble
+  PLAYWRIGHT_IMAGE: mcr.microsoft.com/playwright:v1.59.1-noble
 
 jobs:
   test:
