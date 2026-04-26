@@ -1,0 +1,248 @@
+<h1>Instructions</h1>
+<ul>
+<li>Following Playwright test failed.</li>
+<li>Explain why, be concise, respect Playwright best practices.</li>
+<li>Provide a snippet of code with the fix, if possible.</li>
+</ul>
+<h1>Test info</h1>
+<ul>
+<li>Name: tests/frontend/login.spec.ts &gt;&gt; ID-002 | Verify successful login</li>
+<li>Location: tests/frontend/login.spec.ts:6:1</li>
+</ul>
+<h1>Error details</h1>
+<pre><code>Error: Missing password for account first-account. Set password in config/.env or config/.env.prod
+</code></pre>
+<h1>Page snapshot</h1>
+<pre><code class="language-yaml">- generic [active] [ref=e1]:
+  - text:            
+  - navigation [ref=e2]:
+    - link &quot;PRODUCT STORE&quot; [ref=e3] [cursor=pointer]:
+      - /url: index.html
+      - img [ref=e4]
+      - text: PRODUCT STORE
+    - list [ref=e6]:
+      - listitem [ref=e7]:
+        - link &quot;Home (current)&quot; [ref=e8] [cursor=pointer]:
+          - /url: index.html
+          - text: Home
+          - generic [ref=e9]: (current)
+      - listitem [ref=e10]:
+        - link &quot;Contact&quot; [ref=e11] [cursor=pointer]:
+          - /url: &quot;#&quot;
+      - listitem [ref=e12]:
+        - link &quot;About us&quot; [ref=e13] [cursor=pointer]:
+          - /url: &quot;#&quot;
+      - listitem [ref=e14]:
+        - link &quot;Cart&quot; [ref=e15] [cursor=pointer]:
+          - /url: cart.html
+      - listitem [ref=e16]:
+        - link &quot;Log in&quot; [ref=e17] [cursor=pointer]:
+          - /url: &quot;#&quot;
+      - listitem
+      - listitem
+      - listitem [ref=e18]:
+        - link &quot;Sign up&quot; [ref=e19] [cursor=pointer]:
+          - /url: &quot;#&quot;
+    - generic [ref=e21]:
+      - list [ref=e22]:
+        - listitem [ref=e23] [cursor=pointer]
+        - listitem [ref=e24] [cursor=pointer]
+        - listitem [ref=e25] [cursor=pointer]
+      - img &quot;First slide&quot; [ref=e28]
+      - button &quot;Previous&quot; [ref=e29] [cursor=pointer]:
+        - generic [ref=e31]: Previous
+      - button &quot;Next&quot; [ref=e32] [cursor=pointer]:
+        - generic [ref=e34]: Next
+  - generic [ref=e36]:
+    - generic [ref=e38]:
+      - link &quot;CATEGORIES&quot; [ref=e39] [cursor=pointer]:
+        - /url: &quot;&quot;
+      - link &quot;Phones&quot; [ref=e40] [cursor=pointer]:
+        - /url: &quot;#&quot;
+      - link &quot;Laptops&quot; [ref=e41] [cursor=pointer]:
+        - /url: &quot;#&quot;
+      - link &quot;Monitors&quot; [ref=e42] [cursor=pointer]:
+        - /url: &quot;#&quot;
+    - generic [ref=e43]:
+      - generic [ref=e44]:
+        - generic [ref=e46]:
+          - link [ref=e47] [cursor=pointer]:
+            - /url: prod.html?idp_=1
+          - generic [ref=e48]:
+            - heading &quot;Samsung galaxy s6&quot; [level=4] [ref=e49]:
+              - link &quot;Samsung galaxy s6&quot; [ref=e50] [cursor=pointer]:
+                - /url: prod.html?idp_=1
+            - heading &quot;$360&quot; [level=5] [ref=e51]
+            - paragraph [ref=e52]: The Samsung Galaxy S6 is powered by 1.5GHz octa-core Samsung Exynos 7420 processor and it comes with 3GB of RAM. The phone packs 32GB of internal storage cannot be expanded.
+        - generic [ref=e54]:
+          - link [ref=e55] [cursor=pointer]:
+            - /url: prod.html?idp_=2
+          - generic [ref=e56]:
+            - heading &quot;Nokia lumia 1520&quot; [level=4] [ref=e57]:
+              - link &quot;Nokia lumia 1520&quot; [ref=e58] [cursor=pointer]:
+                - /url: prod.html?idp_=2
+            - heading &quot;$820&quot; [level=5] [ref=e59]
+            - paragraph [ref=e60]: The Nokia Lumia 1520 is powered by 2.2GHz quad-core Qualcomm Snapdragon 800 processor and it comes with 2GB of RAM.
+        - generic [ref=e62]:
+          - link [ref=e63] [cursor=pointer]:
+            - /url: prod.html?idp_=3
+          - generic [ref=e64]:
+            - heading &quot;Nexus 6&quot; [level=4] [ref=e65]:
+              - link &quot;Nexus 6&quot; [ref=e66] [cursor=pointer]:
+                - /url: prod.html?idp_=3
+            - heading &quot;$650&quot; [level=5] [ref=e67]
+            - paragraph [ref=e68]: The Motorola Google Nexus 6 is powered by 2.7GHz quad-core Qualcomm Snapdragon 805 processor and it comes with 3GB of RAM.
+        - generic [ref=e70]:
+          - link [ref=e71] [cursor=pointer]:
+            - /url: prod.html?idp_=4
+          - generic [ref=e72]:
+            - heading &quot;Samsung galaxy s7&quot; [level=4] [ref=e73]:
+              - link &quot;Samsung galaxy s7&quot; [ref=e74] [cursor=pointer]:
+                - /url: prod.html?idp_=4
+            - heading &quot;$800&quot; [level=5] [ref=e75]
+            - paragraph [ref=e76]: The Samsung Galaxy S7 is powered by 1.6GHz octa-core it comes with 4GB of RAM. The phone packs 32GB of internal storage that can be expanded up to 200GB via a microSD card.
+        - generic [ref=e78]:
+          - link [ref=e79] [cursor=pointer]:
+            - /url: prod.html?idp_=5
+          - generic [ref=e80]:
+            - heading &quot;Iphone 6 32gb&quot; [level=4] [ref=e81]:
+              - link &quot;Iphone 6 32gb&quot; [ref=e82] [cursor=pointer]:
+                - /url: prod.html?idp_=5
+            - heading &quot;$790&quot; [level=5] [ref=e83]
+            - paragraph [ref=e84]: It comes with 1GB of RAM. The phone packs 16GB of internal storage cannot be expanded. As far as the cameras are concerned, the Apple iPhone 6 packs a 8-megapixel primary camera on the rear and a 1.2-megapixel front shooter for selfies.
+        - generic [ref=e86]:
+          - link [ref=e87] [cursor=pointer]:
+            - /url: prod.html?idp_=6
+          - generic [ref=e88]:
+            - heading &quot;Sony xperia z5&quot; [level=4] [ref=e89]:
+              - link &quot;Sony xperia z5&quot; [ref=e90] [cursor=pointer]:
+                - /url: prod.html?idp_=6
+            - heading &quot;$320&quot; [level=5] [ref=e91]
+            - paragraph [ref=e92]: Sony Xperia Z5 Dual smartphone was launched in September 2015. The phone comes with a 5.20-inch touchscreen display with a resolution of 1080 pixels by 1920 pixels at a PPI of 424 pixels per inch.
+        - generic [ref=e94]:
+          - link [ref=e95] [cursor=pointer]:
+            - /url: prod.html?idp_=7
+          - generic [ref=e96]:
+            - heading &quot;HTC One M9&quot; [level=4] [ref=e97]:
+              - link &quot;HTC One M9&quot; [ref=e98] [cursor=pointer]:
+                - /url: prod.html?idp_=7
+            - heading &quot;$700&quot; [level=5] [ref=e99]
+            - paragraph [ref=e100]: The HTC One M9 is powered by 1.5GHz octa-core Qualcomm Snapdragon 810 processor and it comes with 3GB of RAM. The phone packs 32GB of internal storage that can be expanded up to 128GB via a microSD card.
+        - generic [ref=e102]:
+          - link [ref=e103] [cursor=pointer]:
+            - /url: prod.html?idp_=8
+          - generic [ref=e104]:
+            - heading &quot;Sony vaio i5&quot; [level=4] [ref=e105]:
+              - link &quot;Sony vaio i5&quot; [ref=e106] [cursor=pointer]:
+                - /url: prod.html?idp_=8
+            - heading &quot;$790&quot; [level=5] [ref=e107]
+            - paragraph [ref=e108]: Sony is so confident that the VAIO S is a superior ultraportable laptop that the company proudly compares the notebook to Apple&#39;s 13-inch MacBook Pro. And in a lot of ways this notebook is better, thanks to a lighter weight.
+        - generic [ref=e110]:
+          - link [ref=e111] [cursor=pointer]:
+            - /url: prod.html?idp_=9
+          - generic [ref=e112]:
+            - heading &quot;Sony vaio i7&quot; [level=4] [ref=e113]:
+              - link &quot;Sony vaio i7&quot; [ref=e114] [cursor=pointer]:
+                - /url: prod.html?idp_=9
+            - heading &quot;$790&quot; [level=5] [ref=e115]
+            - paragraph [ref=e116]: REVIEW Sony is so confident that the VAIO S is a superior ultraportable laptop that the company proudly compares the notebook to Apple&#39;s 13-inch MacBook Pro. And in a lot of ways this notebook is better, thanks to a lighter weight, higher-resolution display, more storage space, and a Blu-ray drive.
+      - list [ref=e118]:
+        - listitem [ref=e119]:
+          - button &quot;Previous&quot; [ref=e120]
+        - listitem [ref=e121]:
+          - button &quot;Next&quot; [ref=e122] [cursor=pointer]
+  - generic [ref=e124]:
+    - generic [ref=e127]:
+      - heading &quot;About Us&quot; [level=4] [ref=e128]
+      - paragraph [ref=e129]: We believe performance needs to be validated at every stage of the software development cycle and our open source compatible, massively scalable platform makes that a reality.
+    - generic [ref=e132]:
+      - heading &quot;Get in Touch&quot; [level=4] [ref=e133]
+      - paragraph [ref=e134]: &quot;Address: 2390 El Camino Real&quot;
+      - paragraph [ref=e135]: &quot;Phone: +440 123456&quot;
+      - paragraph [ref=e136]: &quot;Email: demo@blazemeter.com&quot;
+    - heading &quot;PRODUCT STORE&quot; [level=4] [ref=e140]:
+      - img [ref=e141]
+      - text: PRODUCT STORE
+  - contentinfo [ref=e142]:
+    - paragraph [ref=e143]: Copyright © Product Store
+</code></pre>
+<h1>Test source</h1>
+<pre><code class="language-ts">  1  | import dotenv from &#39;dotenv&#39;;
+  2  | import { existsSync } from &#39;fs&#39;;
+  3  | 
+  4  | import type { TestAccount, TestAccountRecord, TestEnvironmentName } from &#39;../src/types/testAccount&#39;;
+  5  | import userAccountsJson from &#39;../utils/user.json&#39; with { type: &#39;json&#39; };
+  6  | 
+  7  | dotenv.config({
+  8  |   path: `./config/.env.${process.env.env_name}`,
+  9  |   override: false,
+  10 |   quiet: true,
+  11 | });
+  12 | 
+  13 | const envName = process.env.env_name;
+  14 | if (envName === &#39;qa&#39; || envName === &#39;prod&#39;) {
+  15 |   const envSpecificPath = `./config/.env.${envName}`;
+  16 |   if (existsSync(envSpecificPath)) {
+  17 |     dotenv.config({ path: envSpecificPath, override: true, quiet: true });
+  18 |   }
+  19 | }
+  20 | 
+  21 | const userAccounts = userAccountsJson as TestAccountRecord[];
+  22 | 
+  23 | export default class Global {
+  24 |   private static frontEndBaseUrls = new Map([
+  25 |     [&#39;qa&#39;, &#39;https://www.demoblaze.com/&#39;],
+  26 |     [&#39;prod&#39;, &#39;https://www.demoblaze.com/&#39;],
+  27 |   ]);
+  28 | 
+  29 |   private static backendEndBaseUrls = new Map([
+  30 |     [&#39;qa&#39;, &#39;https://jsonplaceholder.typicode.com/&#39;],
+  31 |     [&#39;prod&#39;, &#39;https://jsonplaceholder.typicode.com/&#39;],
+  32 |   ]);
+  33 | 
+  34 |   //Environment
+  35 |   public static ENV_NAME = process.env.env_name ? process.env.env_name : &#39;error&#39;;
+  36 |   public static FRONTEND_BASE_URL = this.frontEndBaseUrls.get(this.ENV_NAME);
+  37 |   public static BACKEND_BASE_URL = this.backendEndBaseUrls.get(this.ENV_NAME);
+  38 | 
+  39 |   //Project
+  40 |   public static GLOBAL_TIMEOUT = process.env.globalTimeout ? parseInt(process.env.globalTimeout) : 3600000;
+  41 |   public static TIMEOUT = process.env.timeout ? parseInt(process.env.timeout) : 60000;
+  42 |   public static EXPECT_TIMEOUT = process.env.expectTimeout ? parseInt(process.env.expectTimeout) : 10000;
+  43 |   public static TRACE = process.env.trace
+  44 |     ? (process.env.trace as &#39;on&#39; | &#39;off&#39; | &#39;retain-on-failure&#39; | &#39;on-first-retry&#39; | &#39;retry-with-trace&#39;)
+  45 |     : &#39;off&#39;;
+  46 |   public static RETRIES = process.env.retries ? parseInt(process.env.retries) : 1;
+  47 |   public static RUN_IN_PARALLEL = process.env.runInParallel === &#39;true&#39;;
+  48 |   public static WORKERS = process.env.workers ? parseInt(process.env.workers) : 1;
+  49 |   public static SCREENSHOT = process.env.screenshot
+  50 |     ? (process.env.screenshot as &#39;off&#39; | &#39;on&#39; | &#39;only-on-failure&#39; | &#39;on-first-failure&#39;)
+  51 |     : &#39;off&#39;;
+  52 |   public static VIDEO = process.env.video
+  53 |     ? (process.env.video as &#39;off&#39; | &#39;on&#39; | &#39;retain-on-failure&#39; | &#39;on-first-retry&#39;)
+  54 |     : &#39;off&#39;;
+  55 | 
+  56 |   //Users accounts
+  57 |   public static getUserAccount(accountName: string): TestAccount {
+  58 |     const envName = this.ENV_NAME;
+  59 |     const record = userAccounts.find(a =&gt; a.accountName === accountName);
+  60 |     if (!record) {
+  61 |       throw new Error(`No user account &quot;${accountName}&quot; in utils/user.json`);
+  62 |     }
+  63 |     const creds = record[envName as TestEnvironmentName];
+  64 |     const password = process.env[accountName];
+  65 |     if (!password) {
+&gt; 66 |       throw new Error(
+     |             ^ Error: Missing password for account first-account. Set password in config/.env or config/.env.prod
+  67 |         `Missing password for account ${accountName}. Set password in config/.env or config/.env.${envName}`,
+  68 |       );
+  69 |     }
+  70 |     return {
+  71 |       username: creds.username,
+  72 |       email: creds.email,
+  73 |       password,
+  74 |     };
+  75 |   }
+  76 | }
+  77 | 
+</code></pre>
