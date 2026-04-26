@@ -160,80 +160,87 @@
 <h1>Test source</h1>
 <pre><code class="language-ts">  1  | import dotenv from &#39;dotenv&#39;;
   2  | import { existsSync } from &#39;fs&#39;;
-  3  | 
-  4  | import type { TestAccount, TestAccountRecord, TestEnvironmentName } from &#39;../src/types/testAccount&#39;;
-  5  | import userAccountsJson from &#39;../utils/user.json&#39; with { type: &#39;json&#39; };
-  6  | 
-  7  | dotenv.config({
-  8  |   path: `./config/.env.${process.env.env_name}`,
-  9  |   override: false,
-  10 |   quiet: true,
-  11 | });
-  12 | 
-  13 | const envName = process.env.env_name;
-  14 | if (envName === &#39;qa&#39; || envName === &#39;prod&#39;) {
-  15 |   const envSpecificPath = `./config/.env.${envName}`;
-  16 |   if (existsSync(envSpecificPath)) {
-  17 |     dotenv.config({ path: envSpecificPath, override: true, quiet: true });
-  18 |   }
-  19 | }
-  20 | 
-  21 | const userAccounts = userAccountsJson as TestAccountRecord[];
-  22 | 
-  23 | export default class Global {
-  24 |   private static frontEndBaseUrls = new Map([
-  25 |     [&#39;qa&#39;, &#39;https://www.demoblaze.com/&#39;],
-  26 |     [&#39;prod&#39;, &#39;https://www.demoblaze.com/&#39;],
-  27 |   ]);
-  28 | 
-  29 |   private static backendEndBaseUrls = new Map([
-  30 |     [&#39;qa&#39;, &#39;https://jsonplaceholder.typicode.com/&#39;],
-  31 |     [&#39;prod&#39;, &#39;https://jsonplaceholder.typicode.com/&#39;],
-  32 |   ]);
-  33 | 
-  34 |   //Environment
-  35 |   public static ENV_NAME = process.env.env_name ? process.env.env_name : &#39;error&#39;;
-  36 |   public static FRONTEND_BASE_URL = this.frontEndBaseUrls.get(this.ENV_NAME);
-  37 |   public static BACKEND_BASE_URL = this.backendEndBaseUrls.get(this.ENV_NAME);
-  38 | 
-  39 |   //Project
-  40 |   public static GLOBAL_TIMEOUT = process.env.globalTimeout ? parseInt(process.env.globalTimeout) : 3600000;
-  41 |   public static TIMEOUT = process.env.timeout ? parseInt(process.env.timeout) : 60000;
-  42 |   public static EXPECT_TIMEOUT = process.env.expectTimeout ? parseInt(process.env.expectTimeout) : 10000;
-  43 |   public static TRACE = process.env.trace
-  44 |     ? (process.env.trace as &#39;on&#39; | &#39;off&#39; | &#39;retain-on-failure&#39; | &#39;on-first-retry&#39; | &#39;retry-with-trace&#39;)
-  45 |     : &#39;off&#39;;
-  46 |   public static RETRIES = process.env.retries ? parseInt(process.env.retries) : 1;
-  47 |   public static RUN_IN_PARALLEL = process.env.runInParallel === &#39;true&#39;;
-  48 |   public static WORKERS = process.env.workers ? parseInt(process.env.workers) : 1;
-  49 |   public static SCREENSHOT = process.env.screenshot
-  50 |     ? (process.env.screenshot as &#39;off&#39; | &#39;on&#39; | &#39;only-on-failure&#39; | &#39;on-first-failure&#39;)
-  51 |     : &#39;off&#39;;
-  52 |   public static VIDEO = process.env.video
-  53 |     ? (process.env.video as &#39;off&#39; | &#39;on&#39; | &#39;retain-on-failure&#39; | &#39;on-first-retry&#39;)
-  54 |     : &#39;off&#39;;
-  55 | 
-  56 |   //Users accounts
-  57 |   public static getUserAccount(accountName: string): TestAccount {
-  58 |     const envName = this.ENV_NAME;
-  59 |     const record = userAccounts.find(a =&gt; a.accountName === accountName);
-  60 |     if (!record) {
-  61 |       throw new Error(`No user account &quot;${accountName}&quot; in utils/user.json`);
-  62 |     }
-  63 |     const creds = record[envName as TestEnvironmentName];
-  64 |     const password = process.env[accountName];
-  65 |     if (!password) {
-&gt; 66 |       throw new Error(
-     |             ^ Error: Missing password for account first-account. Set password in config/.env or config/.env.prod
-  67 |         `Missing password for account ${accountName}. Set password in config/.env or config/.env.${envName}`,
-  68 |       );
+  3  | import path from &#39;node:path&#39;;
+  4  | 
+  5  | import type { TestAccount, TestAccountRecord, TestEnvironmentName } from &#39;../src/types/testAccount&#39;;
+  6  | import userAccountsJson from &#39;../utils/user.json&#39; with { type: &#39;json&#39; };
+  7  | 
+  8  | const configDir = path.join(process.cwd(), &#39;config&#39;);
+  9  | const baseEnvFile = path.join(configDir, &#39;.env&#39;);
+  10 | 
+  11 | if (!process.env.env_name &amp;&amp; existsSync(baseEnvFile)) {
+  12 |   dotenv.config({ path: baseEnvFile, override: false, quiet: true });
+  13 | }
+  14 | 
+  15 | const envName = process.env.env_name;
+  16 | if (envName === &#39;qa&#39; || envName === &#39;prod&#39;) {
+  17 |   const envFile = path.join(configDir, `.env.${envName}`);
+  18 |   if (existsSync(envFile)) {
+  19 |     dotenv.config({ path: envFile, override: true, quiet: true });
+  20 |   }
+  21 | } else if (envName) {
+  22 |   const envFile = path.join(configDir, `.env.${envName}`);
+  23 |   if (existsSync(envFile)) {
+  24 |     dotenv.config({ path: envFile, override: true, quiet: true });
+  25 |   }
+  26 | }
+  27 | 
+  28 | const userAccounts = userAccountsJson as TestAccountRecord[];
+  29 | 
+  30 | export default class Global {
+  31 |   private static frontEndBaseUrls = new Map([
+  32 |     [&#39;qa&#39;, &#39;https://www.demoblaze.com/&#39;],
+  33 |     [&#39;prod&#39;, &#39;https://www.demoblaze.com/&#39;],
+  34 |   ]);
+  35 | 
+  36 |   private static backendEndBaseUrls = new Map([
+  37 |     [&#39;qa&#39;, &#39;https://jsonplaceholder.typicode.com/&#39;],
+  38 |     [&#39;prod&#39;, &#39;https://jsonplaceholder.typicode.com/&#39;],
+  39 |   ]);
+  40 | 
+  41 |   //Environment
+  42 |   public static ENV_NAME = process.env.env_name ? process.env.env_name : &#39;error&#39;;
+  43 |   public static FRONTEND_BASE_URL = this.frontEndBaseUrls.get(this.ENV_NAME);
+  44 |   public static BACKEND_BASE_URL = this.backendEndBaseUrls.get(this.ENV_NAME);
+  45 | 
+  46 |   //Project
+  47 |   public static GLOBAL_TIMEOUT = process.env.globalTimeout ? parseInt(process.env.globalTimeout) : 3600000;
+  48 |   public static TIMEOUT = process.env.timeout ? parseInt(process.env.timeout) : 60000;
+  49 |   public static EXPECT_TIMEOUT = process.env.expectTimeout ? parseInt(process.env.expectTimeout) : 10000;
+  50 |   public static TRACE = process.env.trace
+  51 |     ? (process.env.trace as &#39;on&#39; | &#39;off&#39; | &#39;retain-on-failure&#39; | &#39;on-first-retry&#39; | &#39;retry-with-trace&#39;)
+  52 |     : &#39;off&#39;;
+  53 |   public static RETRIES = process.env.retries ? parseInt(process.env.retries) : 1;
+  54 |   public static RUN_IN_PARALLEL = process.env.runInParallel === &#39;true&#39;;
+  55 |   public static WORKERS = process.env.workers ? parseInt(process.env.workers) : 1;
+  56 |   public static SCREENSHOT = process.env.screenshot
+  57 |     ? (process.env.screenshot as &#39;off&#39; | &#39;on&#39; | &#39;only-on-failure&#39; | &#39;on-first-failure&#39;)
+  58 |     : &#39;off&#39;;
+  59 |   public static VIDEO = process.env.video
+  60 |     ? (process.env.video as &#39;off&#39; | &#39;on&#39; | &#39;retain-on-failure&#39; | &#39;on-first-retry&#39;)
+  61 |     : &#39;off&#39;;
+  62 | 
+  63 |   //Users accounts
+  64 |   public static getUserAccount(accountName: string): TestAccount {
+  65 |     const envName = this.ENV_NAME;
+  66 |     const record = userAccounts.find(a =&gt; a.accountName === accountName);
+  67 |     if (!record) {
+  68 |       throw new Error(`No user account &quot;${accountName}&quot; in utils/user.json`);
   69 |     }
-  70 |     return {
-  71 |       username: creds.username,
-  72 |       email: creds.email,
-  73 |       password,
-  74 |     };
-  75 |   }
-  76 | }
-  77 | 
+  70 |     const creds = record[envName as TestEnvironmentName];
+  71 |     const password = process.env[accountName];
+  72 |     if (!password) {
+&gt; 73 |       throw new Error(
+     |             ^ Error: Missing password for account first-account. Set password in config/.env or config/.env.prod
+  74 |         `Missing password for account ${accountName}. Set password in config/.env or config/.env.${envName}`,
+  75 |       );
+  76 |     }
+  77 |     return {
+  78 |       username: creds.username,
+  79 |       email: creds.email,
+  80 |       password,
+  81 |     };
+  82 |   }
+  83 | }
+  84 | 
 </code></pre>
