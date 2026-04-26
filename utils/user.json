@@ -4,7 +4,7 @@
     "description": "This is just a regular user account",
     "qa": {
       "username": "qa_user",
-      "email": "ff-test@example.com"
+      "email": "qa_user@example.com"
     },
     "prod": {
       "username": "ff-test",
@@ -16,7 +16,7 @@
     "description": "This is just a regular user account",
     "qa": {
       "username": "qa_user",
-      "email": "ff-test@example.com"
+      "email": "qa_user@example.com"
     },
     "prod": {
       "username": "ff-test",

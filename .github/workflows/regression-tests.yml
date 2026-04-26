@@ -25,15 +25,15 @@ jobs:
       ENV_NAME: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.env_name || 'prod' }}
     steps:
       - uses: actions/checkout@v6.0.2
-      - name: 'Create env file'
+      - name: Create env file from secrets
         env:
           ENV_FILE_QA: ${{ secrets.ENV_FILE_QA }}
           ENV_FILE_PROD: ${{ secrets.ENV_FILE_PROD }}
         run: |
           if [ "$ENV_NAME" = "qa" ]; then
-            printf '%s\n' "$ENV_FILE_QA" > "config/.env.${ENV_NAME}"
+            printf '%s' "$ENV_FILE_QA" > "config/.env.${ENV_NAME}"
           else
-            printf '%s\n' "$ENV_FILE_PROD" > "config/.env.${ENV_NAME}"
+            printf '%s' "$ENV_FILE_PROD" > "config/.env.${ENV_NAME}"
           fi
       - name: Run Playwright tests
         run: |

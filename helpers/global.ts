@@ -1,21 +1,34 @@
 import dotenv from 'dotenv';
 import { existsSync } from 'fs';
+import path from 'node:path';
 
 import type { TestAccount, TestAccountRecord, TestEnvironmentName } from '../src/types/testAccount';
 import userAccountsJson from '../utils/user.json' with { type: 'json' };
 
-dotenv.config({
-  path: `./config/.env.${process.env.env_name}`,
-  override: false,
-  quiet: true,
-});
+const configDir = path.join(process.cwd(), 'config');
+const baseEnvFile = path.join(configDir, '.env');
 
-const envName = process.env.env_name;
-if (envName === 'qa' || envName === 'prod') {
-  const envSpecificPath = `./config/.env.${envName}`;
-  if (existsSync(envSpecificPath)) {
-    dotenv.config({ path: envSpecificPath, override: true, quiet: true });
+if (!process.env.env_name && existsSync(baseEnvFile)) {
+  dotenv.config({ path: baseEnvFile, override: false, quiet: true });
+}
+
+// Lock in the target environment before loading the second file. config/.env.qa (or .prod) often
+// also contains an env_name= line; with override: true that would clobber a choice of qa from
+// config/.env or the shell, so we restore the chosen name after the load.
+const selectedEnv = process.env.env_name;
+if (selectedEnv === 'qa' || selectedEnv === 'prod') {
+  const envFile = path.join(configDir, `.env.${selectedEnv}`);
+  if (existsSync(envFile)) {
+    dotenv.config({ path: envFile, override: true, quiet: true });
   }
+} else if (selectedEnv) {
+  const envFile = path.join(configDir, `.env.${selectedEnv}`);
+  if (existsSync(envFile)) {
+    dotenv.config({ path: envFile, override: true, quiet: true });
+  }
+}
+if (selectedEnv) {
+  process.env.env_name = selectedEnv;
 }
 
 const userAccounts = userAccountsJson as TestAccountRecord[];
