@@ -172,75 +172,81 @@
   12 |   dotenv.config({ path: baseEnvFile, override: false, quiet: true });
   13 | }
   14 | 
-  15 | const envName = process.env.env_name;
-  16 | if (envName === &#39;qa&#39; || envName === &#39;prod&#39;) {
-  17 |   const envFile = path.join(configDir, `.env.${envName}`);
-  18 |   if (existsSync(envFile)) {
-  19 |     dotenv.config({ path: envFile, override: true, quiet: true });
-  20 |   }
-  21 | } else if (envName) {
-  22 |   const envFile = path.join(configDir, `.env.${envName}`);
-  23 |   if (existsSync(envFile)) {
-  24 |     dotenv.config({ path: envFile, override: true, quiet: true });
-  25 |   }
-  26 | }
-  27 | 
-  28 | const userAccounts = userAccountsJson as TestAccountRecord[];
-  29 | 
-  30 | export default class Global {
-  31 |   private static frontEndBaseUrls = new Map([
-  32 |     [&#39;qa&#39;, &#39;https://www.demoblaze.com/&#39;],
-  33 |     [&#39;prod&#39;, &#39;https://www.demoblaze.com/&#39;],
-  34 |   ]);
+  15 | // Lock in the target environment before loading the second file. config/.env.qa (or .prod) often
+  16 | // also contains an env_name= line; with override: true that would clobber a choice of qa from
+  17 | // config/.env or the shell, so we restore the chosen name after the load.
+  18 | const selectedEnv = process.env.env_name;
+  19 | if (selectedEnv === &#39;qa&#39; || selectedEnv === &#39;prod&#39;) {
+  20 |   const envFile = path.join(configDir, `.env.${selectedEnv}`);
+  21 |   if (existsSync(envFile)) {
+  22 |     dotenv.config({ path: envFile, override: true, quiet: true });
+  23 |   }
+  24 | } else if (selectedEnv) {
+  25 |   const envFile = path.join(configDir, `.env.${selectedEnv}`);
+  26 |   if (existsSync(envFile)) {
+  27 |     dotenv.config({ path: envFile, override: true, quiet: true });
+  28 |   }
+  29 | }
+  30 | if (selectedEnv) {
+  31 |   process.env.env_name = selectedEnv;
+  32 | }
+  33 | 
+  34 | const userAccounts = userAccountsJson as TestAccountRecord[];
   35 | 
-  36 |   private static backendEndBaseUrls = new Map([
-  37 |     [&#39;qa&#39;, &#39;https://jsonplaceholder.typicode.com/&#39;],
-  38 |     [&#39;prod&#39;, &#39;https://jsonplaceholder.typicode.com/&#39;],
-  39 |   ]);
-  40 | 
-  41 |   //Environment
-  42 |   public static ENV_NAME = process.env.env_name ? process.env.env_name : &#39;error&#39;;
-  43 |   public static FRONTEND_BASE_URL = this.frontEndBaseUrls.get(this.ENV_NAME);
-  44 |   public static BACKEND_BASE_URL = this.backendEndBaseUrls.get(this.ENV_NAME);
-  45 | 
-  46 |   //Project
-  47 |   public static GLOBAL_TIMEOUT = process.env.globalTimeout ? parseInt(process.env.globalTimeout) : 3600000;
-  48 |   public static TIMEOUT = process.env.timeout ? parseInt(process.env.timeout) : 60000;
-  49 |   public static EXPECT_TIMEOUT = process.env.expectTimeout ? parseInt(process.env.expectTimeout) : 10000;
-  50 |   public static TRACE = process.env.trace
-  51 |     ? (process.env.trace as &#39;on&#39; | &#39;off&#39; | &#39;retain-on-failure&#39; | &#39;on-first-retry&#39; | &#39;retry-with-trace&#39;)
-  52 |     : &#39;off&#39;;
-  53 |   public static RETRIES = process.env.retries ? parseInt(process.env.retries) : 1;
-  54 |   public static RUN_IN_PARALLEL = process.env.runInParallel === &#39;true&#39;;
-  55 |   public static WORKERS = process.env.workers ? parseInt(process.env.workers) : 1;
-  56 |   public static SCREENSHOT = process.env.screenshot
-  57 |     ? (process.env.screenshot as &#39;off&#39; | &#39;on&#39; | &#39;only-on-failure&#39; | &#39;on-first-failure&#39;)
+  36 | export default class Global {
+  37 |   private static frontEndBaseUrls = new Map([
+  38 |     [&#39;qa&#39;, &#39;https://www.demoblaze.com/&#39;],
+  39 |     [&#39;prod&#39;, &#39;https://www.demoblaze.com/&#39;],
+  40 |   ]);
+  41 | 
+  42 |   private static backendEndBaseUrls = new Map([
+  43 |     [&#39;qa&#39;, &#39;https://jsonplaceholder.typicode.com/&#39;],
+  44 |     [&#39;prod&#39;, &#39;https://jsonplaceholder.typicode.com/&#39;],
+  45 |   ]);
+  46 | 
+  47 |   //Environment
+  48 |   public static ENV_NAME = process.env.env_name ? process.env.env_name : &#39;error&#39;;
+  49 |   public static FRONTEND_BASE_URL = this.frontEndBaseUrls.get(this.ENV_NAME);
+  50 |   public static BACKEND_BASE_URL = this.backendEndBaseUrls.get(this.ENV_NAME);
+  51 | 
+  52 |   //Project
+  53 |   public static GLOBAL_TIMEOUT = process.env.globalTimeout ? parseInt(process.env.globalTimeout) : 3600000;
+  54 |   public static TIMEOUT = process.env.timeout ? parseInt(process.env.timeout) : 60000;
+  55 |   public static EXPECT_TIMEOUT = process.env.expectTimeout ? parseInt(process.env.expectTimeout) : 10000;
+  56 |   public static TRACE = process.env.trace
+  57 |     ? (process.env.trace as &#39;on&#39; | &#39;off&#39; | &#39;retain-on-failure&#39; | &#39;on-first-retry&#39; | &#39;retry-with-trace&#39;)
   58 |     : &#39;off&#39;;
-  59 |   public static VIDEO = process.env.video
-  60 |     ? (process.env.video as &#39;off&#39; | &#39;on&#39; | &#39;retain-on-failure&#39; | &#39;on-first-retry&#39;)
-  61 |     : &#39;off&#39;;
-  62 | 
-  63 |   //Users accounts
-  64 |   public static getUserAccount(accountName: string): TestAccount {
-  65 |     const envName = this.ENV_NAME;
-  66 |     const record = userAccounts.find(a =&gt; a.accountName === accountName);
-  67 |     if (!record) {
-  68 |       throw new Error(`No user account &quot;${accountName}&quot; in utils/user.json`);
-  69 |     }
-  70 |     const creds = record[envName as TestEnvironmentName];
-  71 |     const password = process.env[accountName];
-  72 |     if (!password) {
-&gt; 73 |       throw new Error(
+  59 |   public static RETRIES = process.env.retries ? parseInt(process.env.retries) : 1;
+  60 |   public static RUN_IN_PARALLEL = process.env.runInParallel === &#39;true&#39;;
+  61 |   public static WORKERS = process.env.workers ? parseInt(process.env.workers) : 1;
+  62 |   public static SCREENSHOT = process.env.screenshot
+  63 |     ? (process.env.screenshot as &#39;off&#39; | &#39;on&#39; | &#39;only-on-failure&#39; | &#39;on-first-failure&#39;)
+  64 |     : &#39;off&#39;;
+  65 |   public static VIDEO = process.env.video
+  66 |     ? (process.env.video as &#39;off&#39; | &#39;on&#39; | &#39;retain-on-failure&#39; | &#39;on-first-retry&#39;)
+  67 |     : &#39;off&#39;;
+  68 | 
+  69 |   //Users accounts
+  70 |   public static getUserAccount(accountName: string): TestAccount {
+  71 |     const envName = this.ENV_NAME;
+  72 |     const record = userAccounts.find(a =&gt; a.accountName === accountName);
+  73 |     if (!record) {
+  74 |       throw new Error(`No user account &quot;${accountName}&quot; in utils/user.json`);
+  75 |     }
+  76 |     const creds = record[envName as TestEnvironmentName];
+  77 |     const password = process.env[accountName];
+  78 |     if (!password) {
+&gt; 79 |       throw new Error(
      |             ^ Error: Missing password for account first-account. Set password in config/.env or config/.env.prod
-  74 |         `Missing password for account ${accountName}. Set password in config/.env or config/.env.${envName}`,
-  75 |       );
-  76 |     }
-  77 |     return {
-  78 |       username: creds.username,
-  79 |       email: creds.email,
-  80 |       password,
-  81 |     };
-  82 |   }
-  83 | }
-  84 | 
+  80 |         `Missing password for account ${accountName}. Set password in config/.env or config/.env.${envName}`,
+  81 |       );
+  82 |     }
+  83 |     return {
+  84 |       username: creds.username,
+  85 |       email: creds.email,
+  86 |       password,
+  87 |     };
+  88 |   }
+  89 | }
+  90 | 
 </code></pre>
