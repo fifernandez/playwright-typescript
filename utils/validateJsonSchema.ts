@@ -15,7 +15,7 @@ import { join } from 'path';
  *    await validateJsonSchema("users", body);
  */
 export async function validateJsonSchema(schemaName: string, body: object, options?: { hard?: boolean }) {
-  const schemaPath = join(process.cwd(), 'schemas', `${schemaName}.json`);
+  const schemaPath = join(process.cwd(), 'src/api/schemas', `${schemaName}.json`);
   const schemaFile = JSON.parse(readFileSync(schemaPath, 'utf-8')) as object;
   const ajv = new Ajv({ allErrors: false });
   const validate = ajv.compile(schemaFile);
