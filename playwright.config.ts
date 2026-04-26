@@ -2,18 +2,19 @@ import { defineConfig, devices } from '@playwright/test';
 
 import allureConfig from './config/allureConfig';
 import ortoniReportConfig from './config/ortoniReportConfig';
-import { DataHelper } from './helpers/dataHelper';
-import GlobalVars from './helpers/globalVars';
+import Global from './helpers/global';
+import { DataHelper } from './utils/dates';
 
 export default defineConfig({
   outputDir: 'out/results/playwright',
-  timeout: 60000,
+  globalTimeout: Global.GLOBAL_TIMEOUT,
+  timeout: Global.TIMEOUT,
   expect: {
-    timeout: 5000,
+    timeout: Global.EXPECT_TIMEOUT,
   },
-  fullyParallel: GlobalVars.RUN_IN_PARALLEL,
-  retries: process.env.CI ? 1 : 1,
-  workers: process.env.CI ? 2 : 2,
+  retries: process.env.CI ? Global.RETRIES : Global.RETRIES,
+  fullyParallel: Global.RUN_IN_PARALLEL,
+  workers: process.env.CI ? Global.WORKERS : Global.WORKERS,
   reporter: [
     ['list'],
     ['html', { open: 'never', outputFolder: 'out/reports/playwright' }],
@@ -29,11 +30,11 @@ export default defineConfig({
     ],
   ],
   use: {
-    baseURL: GlobalVars.FRONTEND_BASE_URL,
-    trace: 'off',
-    screenshot: 'only-on-failure',
+    baseURL: Global.FRONTEND_BASE_URL,
+    trace: Global.TRACE,
+    screenshot: Global.SCREENSHOT,
     video: {
-      mode: 'on',
+      mode: Global.VIDEO,
     },
   },
   projects: [

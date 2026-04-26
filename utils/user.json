@@ -1,0 +1,26 @@
+[
+  {
+    "accountName": "first-account",
+    "description": "This is just a regular user account",
+    "qa": {
+      "username": "qa_user",
+      "email": "ff-test@example.com"
+    },
+    "prod": {
+      "username": "ff-test",
+      "email": "ff-test@example.com"
+    }
+  },
+  {
+    "accountName": "second-account",
+    "description": "This is just a regular user account",
+    "qa": {
+      "username": "qa_user",
+      "email": "ff-test@example.com"
+    },
+    "prod": {
+      "username": "ff-test",
+      "email": "ff-test@example.com"
+    }
+  }
+]

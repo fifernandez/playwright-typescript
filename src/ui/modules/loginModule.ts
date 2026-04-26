@@ -1,8 +1,8 @@
-import { Locator, Page } from '@playwright/test';
+import { Locator, Page, expect } from '@playwright/test';
 
-import { HelperBase } from './helperBase';
+import { BaseModule } from './baseModule';
 
-export class LoginPage extends HelperBase {
+export class LoginModule extends BaseModule {
   readonly modalTitle: Locator;
   readonly username: Locator;
   readonly password: Locator;
@@ -19,8 +19,11 @@ export class LoginPage extends HelperBase {
   }
 
   async loginUser(username: string, password: string) {
+    await expect(this.modalTitle, 'Verify login dialog title is visible').toBeVisible();
+    await expect(this.loginButton, 'Verify login button is visible').toBeVisible();
     await this.username.fill(username);
     await this.password.fill(password);
     await this.loginButton.click();
+    await expect(this.modalTitle, 'Verify login dialog title is hidden').toBeHidden();
   }
 }

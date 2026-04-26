@@ -1,7 +1,7 @@
 /* eslint-disable playwright/no-wait-for-timeout */
 import { Page } from '@playwright/test';
 
-export class HelperBase {
+export class Base {
   readonly page: Page;
 
   constructor(page: Page) {

@@ -1,6 +1,6 @@
 import { test as baseTest } from '@playwright/test';
 
-import { PageManager } from '../page-objects/pageManager';
+import { PageManager } from '../../src/ui/pages/pageManager';
 
 type TestOptions = {
   goToHomePage: string;
