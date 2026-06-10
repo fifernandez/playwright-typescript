@@ -10,243 +10,212 @@
 <li>Location: tests/frontend/login.spec.ts:6:1</li>
 </ul>
 <h1>Error details</h1>
-<pre><code>Error: Missing password for account first-account. Set password in config/.env or config/.env.prod
+<pre><code>Error: Verify login dialog title is hidden
+
+expect(locator).toBeHidden() failed
+
+Locator:  locator(&#39;[id=&quot;logInModalLabel&quot;]&#39;)
+Expected: hidden
+Received: visible
+Timeout:  10000ms
+
+Call log:
+  - Verify login dialog title is hidden with timeout 10000ms
+  - waiting for locator(&#39;[id=&quot;logInModalLabel&quot;]&#39;)
+    14 × locator resolved to &lt;h5 class=&quot;modal-title&quot; id=&quot;logInModalLabel&quot;&gt;Log in&lt;/h5&gt;
+       - unexpected value &quot;visible&quot;
 </code></pre>
 <h1>Page snapshot</h1>
-<pre><code class="language-yaml">- generic [active] [ref=e1]:
+<pre><code class="language-yaml">- generic [ref=e1]:
+  - dialog &quot;Log in&quot; [ref=e2]:
+    - document [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - heading &quot;Log in&quot; [level=5] [ref=e6]
+          - button &quot;Close&quot; [ref=e7] [cursor=pointer]: ×
+        - generic [ref=e9]:
+          - generic [ref=e10]:
+            - generic [ref=e11]: &quot;Username:&quot;
+            - textbox [ref=e12]
+          - generic [ref=e13]:
+            - generic [ref=e14]: &quot;Password:&quot;
+            - textbox [ref=e15]: &quot;123456&quot;
+        - generic [ref=e17]:
+          - button &quot;Close&quot; [ref=e18]
+          - button &quot;Log in&quot; [active] [ref=e19]
   - text:            
-  - navigation [ref=e2]:
-    - button &quot;Toggle navigation&quot; [ref=e3]
-    - link &quot;PRODUCT STORE&quot; [ref=e5]:
+  - navigation [ref=e20]:
+    - button &quot;Toggle navigation&quot; [ref=e21]
+    - link &quot;PRODUCT STORE&quot; [ref=e23]:
       - /url: index.html
-      - img [ref=e6]
+      - img [ref=e24]
       - text: PRODUCT STORE
-    - list [ref=e8]:
-      - listitem [ref=e9]:
-        - link &quot;Home (current)&quot; [ref=e10]:
+    - list [ref=e26]:
+      - listitem [ref=e27]:
+        - link &quot;Home (current)&quot; [ref=e28]:
           - /url: index.html
           - text: Home
-          - generic [ref=e11]: (current)
-      - listitem [ref=e12]:
-        - link &quot;Contact&quot; [ref=e13]:
+          - generic [ref=e29]: (current)
+      - listitem [ref=e30]:
+        - link &quot;Contact&quot; [ref=e31]:
           - /url: &quot;#&quot;
-      - listitem [ref=e14]:
-        - link &quot;About us&quot; [ref=e15]:
+      - listitem [ref=e32]:
+        - link &quot;About us&quot; [ref=e33]:
           - /url: &quot;#&quot;
-      - listitem [ref=e16]:
-        - link &quot;Cart&quot; [ref=e17]:
+      - listitem [ref=e34]:
+        - link &quot;Cart&quot; [ref=e35]:
           - /url: cart.html
-      - listitem [ref=e18]:
-        - link &quot;Log in&quot; [ref=e19]:
+      - listitem [ref=e36]:
+        - link &quot;Log in&quot; [ref=e37]:
           - /url: &quot;#&quot;
       - listitem
       - listitem
-      - listitem [ref=e20]:
-        - link &quot;Sign up&quot; [ref=e21]:
+      - listitem [ref=e38]:
+        - link &quot;Sign up&quot; [ref=e39]:
           - /url: &quot;#&quot;
-  - generic [ref=e23]:
-    - generic [ref=e25]:
-      - link &quot;CATEGORIES&quot; [ref=e26]:
+  - generic [ref=e41]:
+    - generic [ref=e43]:
+      - link &quot;CATEGORIES&quot; [ref=e44]:
         - /url: &quot;&quot;
-      - link &quot;Phones&quot; [ref=e27]:
+      - link &quot;Phones&quot; [ref=e45]:
         - /url: &quot;#&quot;
-      - link &quot;Laptops&quot; [ref=e28]:
+      - link &quot;Laptops&quot; [ref=e46]:
         - /url: &quot;#&quot;
-      - link &quot;Monitors&quot; [ref=e29]:
+      - link &quot;Monitors&quot; [ref=e47]:
         - /url: &quot;#&quot;
-    - generic [ref=e30]:
-      - generic [ref=e31]:
-        - generic [ref=e33]:
-          - link [ref=e34]:
+    - generic [ref=e48]:
+      - generic [ref=e49]:
+        - generic [ref=e51]:
+          - link [ref=e52]:
             - /url: prod.html?idp_=1
-          - generic [ref=e35]:
-            - heading &quot;Samsung galaxy s6&quot; [level=4] [ref=e36]:
-              - link &quot;Samsung galaxy s6&quot; [ref=e37]:
+          - generic [ref=e53]:
+            - heading &quot;Samsung galaxy s6&quot; [level=4] [ref=e54]:
+              - link &quot;Samsung galaxy s6&quot; [ref=e55]:
                 - /url: prod.html?idp_=1
-            - heading &quot;$360&quot; [level=5] [ref=e38]
-            - paragraph [ref=e39]: The Samsung Galaxy S6 is powered by 1.5GHz octa-core Samsung Exynos 7420 processor and it comes with 3GB of RAM. The phone packs 32GB of internal storage cannot be expanded.
-        - generic [ref=e41]:
-          - link [ref=e42]:
+            - heading &quot;$360&quot; [level=5] [ref=e56]
+            - paragraph [ref=e57]: The Samsung Galaxy S6 is powered by 1.5GHz octa-core Samsung Exynos 7420 processor and it comes with 3GB of RAM. The phone packs 32GB of internal storage cannot be expanded.
+        - generic [ref=e59]:
+          - link [ref=e60]:
             - /url: prod.html?idp_=2
-          - generic [ref=e43]:
-            - heading &quot;Nokia lumia 1520&quot; [level=4] [ref=e44]:
-              - link &quot;Nokia lumia 1520&quot; [ref=e45]:
+          - generic [ref=e61]:
+            - heading &quot;Nokia lumia 1520&quot; [level=4] [ref=e62]:
+              - link &quot;Nokia lumia 1520&quot; [ref=e63]:
                 - /url: prod.html?idp_=2
-            - heading &quot;$820&quot; [level=5] [ref=e46]
-            - paragraph [ref=e47]: The Nokia Lumia 1520 is powered by 2.2GHz quad-core Qualcomm Snapdragon 800 processor and it comes with 2GB of RAM.
-        - generic [ref=e49]:
-          - link [ref=e50]:
+            - heading &quot;$820&quot; [level=5] [ref=e64]
+            - paragraph [ref=e65]: The Nokia Lumia 1520 is powered by 2.2GHz quad-core Qualcomm Snapdragon 800 processor and it comes with 2GB of RAM.
+        - generic [ref=e67]:
+          - link [ref=e68]:
             - /url: prod.html?idp_=3
-          - generic [ref=e51]:
-            - heading &quot;Nexus 6&quot; [level=4] [ref=e52]:
-              - link &quot;Nexus 6&quot; [ref=e53]:
+          - generic [ref=e69]:
+            - heading &quot;Nexus 6&quot; [level=4] [ref=e70]:
+              - link &quot;Nexus 6&quot; [ref=e71]:
                 - /url: prod.html?idp_=3
-            - heading &quot;$650&quot; [level=5] [ref=e54]
-            - paragraph [ref=e55]: The Motorola Google Nexus 6 is powered by 2.7GHz quad-core Qualcomm Snapdragon 805 processor and it comes with 3GB of RAM.
-        - generic [ref=e57]:
-          - link [ref=e58]:
+            - heading &quot;$650&quot; [level=5] [ref=e72]
+            - paragraph [ref=e73]: The Motorola Google Nexus 6 is powered by 2.7GHz quad-core Qualcomm Snapdragon 805 processor and it comes with 3GB of RAM.
+        - generic [ref=e75]:
+          - link [ref=e76]:
             - /url: prod.html?idp_=4
-          - generic [ref=e59]:
-            - heading &quot;Samsung galaxy s7&quot; [level=4] [ref=e60]:
-              - link &quot;Samsung galaxy s7&quot; [ref=e61]:
+          - generic [ref=e77]:
+            - heading &quot;Samsung galaxy s7&quot; [level=4] [ref=e78]:
+              - link &quot;Samsung galaxy s7&quot; [ref=e79]:
                 - /url: prod.html?idp_=4
-            - heading &quot;$800&quot; [level=5] [ref=e62]
-            - paragraph [ref=e63]: The Samsung Galaxy S7 is powered by 1.6GHz octa-core it comes with 4GB of RAM. The phone packs 32GB of internal storage that can be expanded up to 200GB via a microSD card.
-        - generic [ref=e65]:
-          - link [ref=e66]:
+            - heading &quot;$800&quot; [level=5] [ref=e80]
+            - paragraph [ref=e81]: The Samsung Galaxy S7 is powered by 1.6GHz octa-core it comes with 4GB of RAM. The phone packs 32GB of internal storage that can be expanded up to 200GB via a microSD card.
+        - generic [ref=e83]:
+          - link [ref=e84]:
             - /url: prod.html?idp_=5
-          - generic [ref=e67]:
-            - heading &quot;Iphone 6 32gb&quot; [level=4] [ref=e68]:
-              - link &quot;Iphone 6 32gb&quot; [ref=e69]:
+          - generic [ref=e85]:
+            - heading &quot;Iphone 6 32gb&quot; [level=4] [ref=e86]:
+              - link &quot;Iphone 6 32gb&quot; [ref=e87]:
                 - /url: prod.html?idp_=5
-            - heading &quot;$790&quot; [level=5] [ref=e70]
-            - paragraph [ref=e71]: It comes with 1GB of RAM. The phone packs 16GB of internal storage cannot be expanded. As far as the cameras are concerned, the Apple iPhone 6 packs a 8-megapixel primary camera on the rear and a 1.2-megapixel front shooter for selfies.
-        - generic [ref=e73]:
-          - link [ref=e74]:
+            - heading &quot;$790&quot; [level=5] [ref=e88]
+            - paragraph [ref=e89]: It comes with 1GB of RAM. The phone packs 16GB of internal storage cannot be expanded. As far as the cameras are concerned, the Apple iPhone 6 packs a 8-megapixel primary camera on the rear and a 1.2-megapixel front shooter for selfies.
+        - generic [ref=e91]:
+          - link [ref=e92]:
             - /url: prod.html?idp_=6
-          - generic [ref=e75]:
-            - heading &quot;Sony xperia z5&quot; [level=4] [ref=e76]:
-              - link &quot;Sony xperia z5&quot; [ref=e77]:
+          - generic [ref=e93]:
+            - heading &quot;Sony xperia z5&quot; [level=4] [ref=e94]:
+              - link &quot;Sony xperia z5&quot; [ref=e95]:
                 - /url: prod.html?idp_=6
-            - heading &quot;$320&quot; [level=5] [ref=e78]
-            - paragraph [ref=e79]: Sony Xperia Z5 Dual smartphone was launched in September 2015. The phone comes with a 5.20-inch touchscreen display with a resolution of 1080 pixels by 1920 pixels at a PPI of 424 pixels per inch.
-        - generic [ref=e81]:
-          - link [ref=e82]:
+            - heading &quot;$320&quot; [level=5] [ref=e96]
+            - paragraph [ref=e97]: Sony Xperia Z5 Dual smartphone was launched in September 2015. The phone comes with a 5.20-inch touchscreen display with a resolution of 1080 pixels by 1920 pixels at a PPI of 424 pixels per inch.
+        - generic [ref=e99]:
+          - link [ref=e100]:
             - /url: prod.html?idp_=7
-          - generic [ref=e83]:
-            - heading &quot;HTC One M9&quot; [level=4] [ref=e84]:
-              - link &quot;HTC One M9&quot; [ref=e85]:
+          - generic [ref=e101]:
+            - heading &quot;HTC One M9&quot; [level=4] [ref=e102]:
+              - link &quot;HTC One M9&quot; [ref=e103]:
                 - /url: prod.html?idp_=7
-            - heading &quot;$700&quot; [level=5] [ref=e86]
-            - paragraph [ref=e87]: The HTC One M9 is powered by 1.5GHz octa-core Qualcomm Snapdragon 810 processor and it comes with 3GB of RAM. The phone packs 32GB of internal storage that can be expanded up to 128GB via a microSD card.
-        - generic [ref=e89]:
-          - link [ref=e90]:
+            - heading &quot;$700&quot; [level=5] [ref=e104]
+            - paragraph [ref=e105]: The HTC One M9 is powered by 1.5GHz octa-core Qualcomm Snapdragon 810 processor and it comes with 3GB of RAM. The phone packs 32GB of internal storage that can be expanded up to 128GB via a microSD card.
+        - generic [ref=e107]:
+          - link [ref=e108]:
             - /url: prod.html?idp_=8
-          - generic [ref=e91]:
-            - heading &quot;Sony vaio i5&quot; [level=4] [ref=e92]:
-              - link &quot;Sony vaio i5&quot; [ref=e93]:
+          - generic [ref=e109]:
+            - heading &quot;Sony vaio i5&quot; [level=4] [ref=e110]:
+              - link &quot;Sony vaio i5&quot; [ref=e111]:
                 - /url: prod.html?idp_=8
-            - heading &quot;$790&quot; [level=5] [ref=e94]
-            - paragraph [ref=e95]: Sony is so confident that the VAIO S is a superior ultraportable laptop that the company proudly compares the notebook to Apple&#39;s 13-inch MacBook Pro. And in a lot of ways this notebook is better, thanks to a lighter weight.
-        - generic [ref=e97]:
-          - link [ref=e98]:
+            - heading &quot;$790&quot; [level=5] [ref=e112]
+            - paragraph [ref=e113]: Sony is so confident that the VAIO S is a superior ultraportable laptop that the company proudly compares the notebook to Apple&#39;s 13-inch MacBook Pro. And in a lot of ways this notebook is better, thanks to a lighter weight.
+        - generic [ref=e115]:
+          - link [ref=e116]:
             - /url: prod.html?idp_=9
-          - generic [ref=e99]:
-            - heading &quot;Sony vaio i7&quot; [level=4] [ref=e100]:
-              - link &quot;Sony vaio i7&quot; [ref=e101]:
+          - generic [ref=e117]:
+            - heading &quot;Sony vaio i7&quot; [level=4] [ref=e118]:
+              - link &quot;Sony vaio i7&quot; [ref=e119]:
                 - /url: prod.html?idp_=9
-            - heading &quot;$790&quot; [level=5] [ref=e102]
-            - paragraph [ref=e103]: REVIEW Sony is so confident that the VAIO S is a superior ultraportable laptop that the company proudly compares the notebook to Apple&#39;s 13-inch MacBook Pro. And in a lot of ways this notebook is better, thanks to a lighter weight, higher-resolution display, more storage space, and a Blu-ray drive.
-      - list [ref=e105]:
-        - listitem [ref=e106]:
-          - button &quot;Previous&quot; [ref=e107]
-        - listitem [ref=e108]:
-          - button &quot;Next&quot; [ref=e109] [cursor=pointer]
-  - generic [ref=e111]:
-    - generic [ref=e114]:
-      - heading &quot;About Us&quot; [level=4] [ref=e115]
-      - paragraph [ref=e116]: We believe performance needs to be validated at every stage of the software development cycle and our open source compatible, massively scalable platform makes that a reality.
-    - generic [ref=e119]:
-      - heading &quot;Get in Touch&quot; [level=4] [ref=e120]
-      - paragraph [ref=e121]: &quot;Address: 2390 El Camino Real&quot;
-      - paragraph [ref=e122]: &quot;Phone: +440 123456&quot;
-      - paragraph [ref=e123]: &quot;Email: demo@blazemeter.com&quot;
-    - heading &quot;PRODUCT STORE&quot; [level=4] [ref=e127]:
-      - img [ref=e128]
+            - heading &quot;$790&quot; [level=5] [ref=e120]
+            - paragraph [ref=e121]: REVIEW Sony is so confident that the VAIO S is a superior ultraportable laptop that the company proudly compares the notebook to Apple&#39;s 13-inch MacBook Pro. And in a lot of ways this notebook is better, thanks to a lighter weight, higher-resolution display, more storage space, and a Blu-ray drive.
+      - list [ref=e123]:
+        - listitem [ref=e124]:
+          - button &quot;Previous&quot; [ref=e125]
+        - listitem [ref=e126]:
+          - button &quot;Next&quot; [ref=e127] [cursor=pointer]
+  - generic [ref=e129]:
+    - generic [ref=e132]:
+      - heading &quot;About Us&quot; [level=4] [ref=e133]
+      - paragraph [ref=e134]: We believe performance needs to be validated at every stage of the software development cycle and our open source compatible, massively scalable platform makes that a reality.
+    - generic [ref=e137]:
+      - heading &quot;Get in Touch&quot; [level=4] [ref=e138]
+      - paragraph [ref=e139]: &quot;Address: 2390 El Camino Real&quot;
+      - paragraph [ref=e140]: &quot;Phone: +440 123456&quot;
+      - paragraph [ref=e141]: &quot;Email: demo@blazemeter.com&quot;
+    - heading &quot;PRODUCT STORE&quot; [level=4] [ref=e145]:
+      - img [ref=e146]
       - text: PRODUCT STORE
-  - contentinfo [ref=e129]:
-    - paragraph [ref=e130]: Copyright © Product Store
+  - contentinfo [ref=e147]:
+    - paragraph [ref=e148]: Copyright © Product Store
 </code></pre>
 <h1>Test source</h1>
-<pre><code class="language-ts">  1  | import dotenv from &#39;dotenv&#39;;
-  2  | import { existsSync } from &#39;fs&#39;;
-  3  | import path from &#39;node:path&#39;;
+<pre><code class="language-ts">  1  | import { Locator, Page, expect } from &#39;@playwright/test&#39;;
+  2  | 
+  3  | import { BaseModule } from &#39;./baseModule&#39;;
   4  | 
-  5  | import type { TestAccount, TestAccountRecord, TestEnvironmentName } from &#39;../src/types/testAccount&#39;;
-  6  | import userAccountsJson from &#39;../utils/user.json&#39; with { type: &#39;json&#39; };
-  7  | 
-  8  | const configDir = path.join(process.cwd(), &#39;config&#39;);
-  9  | const baseEnvFile = path.join(configDir, &#39;.env&#39;);
-  10 | 
-  11 | if (!process.env.env_name &amp;&amp; existsSync(baseEnvFile)) {
-  12 |   dotenv.config({ path: baseEnvFile, override: false, quiet: true });
-  13 | }
-  14 | 
-  15 | // Lock in the target environment before loading the second file. config/.env.qa (or .prod) often
-  16 | // also contains an env_name= line; with override: true that would clobber a choice of qa from
-  17 | // config/.env or the shell, so we restore the chosen name after the load.
-  18 | const selectedEnv = process.env.env_name;
-  19 | if (selectedEnv === &#39;qa&#39; || selectedEnv === &#39;prod&#39;) {
-  20 |   const envFile = path.join(configDir, `.env.${selectedEnv}`);
-  21 |   if (existsSync(envFile)) {
-  22 |     dotenv.config({ path: envFile, override: true, quiet: true });
-  23 |   }
-  24 | } else if (selectedEnv) {
-  25 |   const envFile = path.join(configDir, `.env.${selectedEnv}`);
-  26 |   if (existsSync(envFile)) {
-  27 |     dotenv.config({ path: envFile, override: true, quiet: true });
+  5  | export class LoginModule extends BaseModule {
+  6  |   readonly modalTitle: Locator;
+  7  |   readonly username: Locator;
+  8  |   readonly password: Locator;
+  9  |   readonly close: Locator;
+  10 |   readonly loginButton: Locator;
+  11 | 
+  12 |   constructor(page: Page) {
+  13 |     super(page);
+  14 |     this.modalTitle = this.page.locator(&#39;[id=&quot;logInModalLabel&quot;]&#39;);
+  15 |     this.username = this.page.locator(&#39;input[id=&quot;loginusername&quot;]&#39;);
+  16 |     this.password = this.page.locator(&#39;input[id=&quot;loginpassword&quot;]&#39;);
+  17 |     this.close = this.page.getByRole(&#39;button&#39;, { name: &#39;Close&#39; });
+  18 |     this.loginButton = this.page.getByRole(&#39;button&#39;, { name: &#39;Log in&#39; });
+  19 |   }
+  20 | 
+  21 |   async loginUser(username: string, password: string) {
+  22 |     await expect(this.modalTitle, &#39;Verify login dialog title is visible&#39;).toBeVisible();
+  23 |     await expect(this.loginButton, &#39;Verify login button is visible&#39;).toBeVisible();
+  24 |     await this.username.fill(username);
+  25 |     await this.password.fill(password);
+  26 |     await this.loginButton.click();
+&gt; 27 |     await expect(this.modalTitle, &#39;Verify login dialog title is hidden&#39;).toBeHidden();
+     |                                                                          ^ Error: Verify login dialog title is hidden
   28 |   }
   29 | }
-  30 | if (selectedEnv) {
-  31 |   process.env.env_name = selectedEnv;
-  32 | }
-  33 | 
-  34 | const userAccounts = userAccountsJson as TestAccountRecord[];
-  35 | 
-  36 | export default class Global {
-  37 |   private static frontEndBaseUrls = new Map([
-  38 |     [&#39;qa&#39;, &#39;https://www.demoblaze.com/&#39;],
-  39 |     [&#39;prod&#39;, &#39;https://www.demoblaze.com/&#39;],
-  40 |   ]);
-  41 | 
-  42 |   private static backendEndBaseUrls = new Map([
-  43 |     [&#39;qa&#39;, &#39;https://jsonplaceholder.typicode.com/&#39;],
-  44 |     [&#39;prod&#39;, &#39;https://jsonplaceholder.typicode.com/&#39;],
-  45 |   ]);
-  46 | 
-  47 |   //Environment
-  48 |   public static ENV_NAME = process.env.env_name ? process.env.env_name : &#39;error&#39;;
-  49 |   public static FRONTEND_BASE_URL = this.frontEndBaseUrls.get(this.ENV_NAME);
-  50 |   public static BACKEND_BASE_URL = this.backendEndBaseUrls.get(this.ENV_NAME);
-  51 | 
-  52 |   //Project
-  53 |   public static GLOBAL_TIMEOUT = process.env.globalTimeout ? parseInt(process.env.globalTimeout) : 3600000;
-  54 |   public static TIMEOUT = process.env.timeout ? parseInt(process.env.timeout) : 60000;
-  55 |   public static EXPECT_TIMEOUT = process.env.expectTimeout ? parseInt(process.env.expectTimeout) : 10000;
-  56 |   public static TRACE = process.env.trace
-  57 |     ? (process.env.trace as &#39;on&#39; | &#39;off&#39; | &#39;retain-on-failure&#39; | &#39;on-first-retry&#39; | &#39;retry-with-trace&#39;)
-  58 |     : &#39;off&#39;;
-  59 |   public static RETRIES = process.env.retries ? parseInt(process.env.retries) : 1;
-  60 |   public static RUN_IN_PARALLEL = process.env.runInParallel === &#39;true&#39;;
-  61 |   public static WORKERS = process.env.workers ? parseInt(process.env.workers) : 1;
-  62 |   public static SCREENSHOT = process.env.screenshot
-  63 |     ? (process.env.screenshot as &#39;off&#39; | &#39;on&#39; | &#39;only-on-failure&#39; | &#39;on-first-failure&#39;)
-  64 |     : &#39;off&#39;;
-  65 |   public static VIDEO = process.env.video
-  66 |     ? (process.env.video as &#39;off&#39; | &#39;on&#39; | &#39;retain-on-failure&#39; | &#39;on-first-retry&#39;)
-  67 |     : &#39;off&#39;;
-  68 | 
-  69 |   //Users accounts
-  70 |   public static getUserAccount(accountName: string): TestAccount {
-  71 |     const envName = this.ENV_NAME;
-  72 |     const record = userAccounts.find(a =&gt; a.accountName === accountName);
-  73 |     if (!record) {
-  74 |       throw new Error(`No user account &quot;${accountName}&quot; in utils/user.json`);
-  75 |     }
-  76 |     const creds = record[envName as TestEnvironmentName];
-  77 |     const password = process.env[accountName];
-  78 |     if (!password) {
-&gt; 79 |       throw new Error(
-     |             ^ Error: Missing password for account first-account. Set password in config/.env or config/.env.prod
-  80 |         `Missing password for account ${accountName}. Set password in config/.env or config/.env.${envName}`,
-  81 |       );
-  82 |     }
-  83 |     return {
-  84 |       username: creds.username,
-  85 |       email: creds.email,
-  86 |       password,
-  87 |     };
-  88 |   }
-  89 | }
-  90 | 
+  30 | 
 </code></pre>
