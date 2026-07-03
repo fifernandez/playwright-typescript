@@ -1,0 +1,180 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: tests/frontend/homePage.spec.ts >> ID-001 | Verify invalid phones are not visible
+- Location: tests/frontend/homePage.spec.ts:24:1
+
+# Error details
+
+```
+Error: Expected POST https://api.demoblaze.com/bycat with body cat="phone" after category click
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+
+Call Log:
+- Timeout 15000ms exceeded while waiting on the predicate
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - text:             
+  - navigation [ref=e2]:
+    - link "PRODUCT STORE" [ref=e3] [cursor=pointer]:
+      - /url: index.html
+      - img [ref=e4]
+      - text: PRODUCT STORE
+    - list [ref=e6]:
+      - listitem [ref=e7]:
+        - link "Home (current)" [ref=e8] [cursor=pointer]:
+          - /url: index.html
+          - text: Home
+          - generic [ref=e9]: (current)
+      - listitem [ref=e10]:
+        - link "Contact" [ref=e11] [cursor=pointer]:
+          - /url: "#"
+      - listitem [ref=e12]:
+        - link "About us" [ref=e13] [cursor=pointer]:
+          - /url: "#"
+      - listitem [ref=e14]:
+        - link "Cart" [ref=e15] [cursor=pointer]:
+          - /url: cart.html
+      - listitem [ref=e16]:
+        - link "Log in" [ref=e17] [cursor=pointer]:
+          - /url: "#"
+      - listitem
+      - listitem
+      - listitem [ref=e18]:
+        - link "Sign up" [ref=e19] [cursor=pointer]:
+          - /url: "#"
+    - generic [ref=e21]:
+      - list [ref=e22]:
+        - listitem [ref=e23] [cursor=pointer]
+        - listitem [ref=e24] [cursor=pointer]
+        - listitem [ref=e25] [cursor=pointer]
+      - img "Third slide" [ref=e28]
+      - button "Previous" [ref=e29] [cursor=pointer]:
+        - generic [ref=e31]: Previous
+      - button "Next" [ref=e32] [cursor=pointer]:
+        - generic [ref=e34]: Next
+  - generic [ref=e36]:
+    - generic [ref=e38]:
+      - link "CATEGORIES" [ref=e39] [cursor=pointer]:
+        - /url: ""
+      - link "Phones" [active] [ref=e40] [cursor=pointer]:
+        - /url: "#"
+      - link "Laptops" [ref=e41] [cursor=pointer]:
+        - /url: "#"
+      - link "Monitors" [ref=e42] [cursor=pointer]:
+        - /url: "#"
+    - list [ref=e45]:
+      - listitem [ref=e46]:
+        - button "Previous" [ref=e47]
+      - listitem [ref=e48]:
+        - button "Next" [ref=e49] [cursor=pointer]
+  - generic [ref=e51]:
+    - generic [ref=e54]:
+      - heading "About Us" [level=4] [ref=e55]
+      - paragraph [ref=e56]: We believe performance needs to be validated at every stage of the software development cycle and our open source compatible, massively scalable platform makes that a reality.
+    - generic [ref=e59]:
+      - heading "Get in Touch" [level=4] [ref=e60]
+      - paragraph [ref=e61]: "Address: 2390 El Camino Real"
+      - paragraph [ref=e62]: "Phone: +440 123456"
+      - paragraph [ref=e63]: "Email: demo@blazemeter.com"
+    - heading "PRODUCT STORE" [level=4] [ref=e67]:
+      - img [ref=e68]
+      - text: PRODUCT STORE
+  - contentinfo [ref=e69]:
+    - paragraph [ref=e70]: Copyright © Product Store
+```
+
+# Test source
+
+```ts
+  1  | import { Locator, Page, type Response, expect } from '@playwright/test';
+  2  | 
+  3  | import { LoginModule } from '../modules/loginModule';
+  4  | import { NavBarModule } from '../modules/navBarModule';
+  5  | import { BasePage } from './basePage';
+  6  | 
+  7  | export class HomePage extends BasePage {
+  8  |   readonly navBar: NavBarModule;
+  9  |   readonly loginDialog: LoginModule;
+  10 |   readonly phones: Locator;
+  11 |   readonly laptops: Locator;
+  12 |   readonly monitors: Locator;
+  13 |   readonly cardTitle: Locator;
+  14 | 
+  15 |   constructor(page: Page) {
+  16 |     super(page);
+  17 |     this.navBar = new NavBarModule(this.page);
+  18 |     this.loginDialog = new LoginModule(this.page);
+  19 |     this.phones = this.page.getByRole('link', { name: 'Phones' });
+  20 |     this.laptops = this.page.getByRole('link', { name: 'Laptops' });
+  21 |     this.monitors = this.page.getByRole('link', { name: 'Monitors' });
+  22 |     this.cardTitle = this.page.locator('h4[class="card-title"]');
+  23 |   }
+  24 | 
+  25 |   /**
+  26 |    * Click on a category link
+  27 |    * Wait for the backend to respond with the items for the category
+  28 |    * Return the number of items returned by the backend.
+  29 |    * @param link - The link to click on.
+  30 |    * @param expectedCat - The expected category.
+  31 |    * @returns The number of items displayed for the category.
+  32 |    */
+  33 |   private async clickCategoryLink(link: Locator, expectedCat: string): Promise<number> {
+  34 |     let bycatResponse: Response | undefined;
+  35 |     const onResponse = (response: Response) => {
+  36 |       const request = response.request();
+  37 |       if (!response.url().includes('api.demoblaze.com/bycat')) return;
+  38 |       if (request.method() !== 'POST') return;
+  39 |       const body = request.postDataJSON() as { cat?: string } | null;
+  40 |       if (body?.cat !== expectedCat) return;
+  41 |       if (!response.ok()) return;
+  42 |       bycatResponse = response;
+  43 |     };
+  44 |     // Subscribe before the click so a fast bycat response is still observed.
+  45 |     this.page.on('response', onResponse);
+  46 |     await link.click();
+> 47 |     await expect
+     |     ^ Error: Expected POST https://api.demoblaze.com/bycat with body cat="phone" after category click
+  48 |       .poll(() => bycatResponse !== undefined, {
+  49 |         message: `Expected POST https://api.demoblaze.com/bycat with body cat="${expectedCat}" after category click`,
+  50 |         timeout: 15000,
+  51 |         intervals: [500],
+  52 |       })
+  53 |       .toBe(true);
+  54 |     this.page.off('response', onResponse);
+  55 | 
+  56 |     const payload = (await bycatResponse!.json()) as { Items?: Array<{ cat?: string }> };
+  57 |     const itemCount = payload.Items?.length ?? 0;
+  58 |     expect(itemCount).toBeGreaterThan(0);
+  59 |     expect(payload.Items!.every(item => item.cat === expectedCat)).toBe(true);
+  60 |     return itemCount;
+  61 |   }
+  62 | 
+  63 |   async clickCategory(category: string): Promise<number> {
+  64 |     switch (category.toLowerCase()) {
+  65 |       case 'phones':
+  66 |         return await this.clickCategoryLink(this.phones, 'phone');
+  67 |       case 'laptops':
+  68 |         return await this.clickCategoryLink(this.laptops, 'notebook');
+  69 |       case 'monitors':
+  70 |         return await this.clickCategoryLink(this.monitors, 'monitor');
+  71 |       default:
+  72 |         throw new Error(`Unknown category: ${category}`);
+  73 |     }
+  74 |   }
+  75 | }
+  76 | 
+```
