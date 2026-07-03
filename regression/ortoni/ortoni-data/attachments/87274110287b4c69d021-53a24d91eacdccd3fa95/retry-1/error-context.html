@@ -1,0 +1,237 @@
+<h1>Instructions</h1>
+<ul>
+<li>Following Playwright test failed.</li>
+<li>Explain why, be concise, respect Playwright best practices.</li>
+<li>Provide a snippet of code with the fix, if possible.</li>
+</ul>
+<h1>Test info</h1>
+<ul>
+<li>Name: tests/frontend/homePage.spec.ts &gt;&gt; ID-001 | Verify invalid phones are not visible</li>
+<li>Location: tests/frontend/homePage.spec.ts:24:1</li>
+</ul>
+<h1>Error details</h1>
+<pre><code>Error: Expected POST https://api.demoblaze.com/bycat with body cat=&quot;phone&quot; after category click
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+
+Call Log:
+- Timeout 15000ms exceeded while waiting on the predicate
+</code></pre>
+<h1>Page snapshot</h1>
+<pre><code class="language-yaml">- generic [ref=e1]:
+  - text:            
+  - navigation [ref=e2]:
+    - link &quot;PRODUCT STORE&quot; [ref=e3]:
+      - /url: index.html
+      - img [ref=e4]
+      - text: PRODUCT STORE
+    - list [ref=e6]:
+      - listitem [ref=e7]:
+        - link &quot;Home (current)&quot; [ref=e8]:
+          - /url: index.html
+          - text: Home
+          - generic [ref=e9]: (current)
+      - listitem [ref=e10]:
+        - link &quot;Contact&quot; [ref=e11]:
+          - /url: &quot;#&quot;
+      - listitem [ref=e12]:
+        - link &quot;About us&quot; [ref=e13]:
+          - /url: &quot;#&quot;
+      - listitem [ref=e14]:
+        - link &quot;Cart&quot; [ref=e15]:
+          - /url: cart.html
+      - listitem [ref=e16]:
+        - link &quot;Log in&quot; [ref=e17]:
+          - /url: &quot;#&quot;
+      - listitem
+      - listitem
+      - listitem [ref=e18]:
+        - link &quot;Sign up&quot; [ref=e19]:
+          - /url: &quot;#&quot;
+    - generic [ref=e21]:
+      - list [ref=e22]:
+        - listitem [ref=e23] [cursor=pointer]
+        - listitem [ref=e24] [cursor=pointer]
+        - listitem [ref=e25] [cursor=pointer]
+      - img &quot;First slide&quot; [ref=e28]
+      - button &quot;Previous&quot; [ref=e29] [cursor=pointer]:
+        - generic [ref=e31]: Previous
+      - button &quot;Next&quot; [ref=e32] [cursor=pointer]:
+        - generic [ref=e34]: Next
+  - generic [ref=e36]:
+    - generic [ref=e38]:
+      - link &quot;CATEGORIES&quot; [ref=e39]:
+        - /url: &quot;&quot;
+      - link &quot;Phones&quot; [active] [ref=e40]:
+        - /url: &quot;#&quot;
+      - link &quot;Laptops&quot; [ref=e41]:
+        - /url: &quot;#&quot;
+      - link &quot;Monitors&quot; [ref=e42]:
+        - /url: &quot;#&quot;
+    - generic [ref=e43]:
+      - generic [ref=e44]:
+        - generic [ref=e46]:
+          - link [ref=e47]:
+            - /url: prod.html?idp_=1
+          - generic [ref=e48]:
+            - heading &quot;Samsung galaxy s6&quot; [level=4] [ref=e49]:
+              - link &quot;Samsung galaxy s6&quot; [ref=e50]:
+                - /url: prod.html?idp_=1
+            - heading &quot;$360&quot; [level=5] [ref=e51]
+            - paragraph [ref=e52]: The Samsung Galaxy S6 is powered by 1.5GHz octa-core Samsung Exynos 7420 processor and it comes with 3GB of RAM. The phone packs 32GB of internal storage cannot be expanded.
+        - generic [ref=e54]:
+          - link [ref=e55]:
+            - /url: prod.html?idp_=2
+          - generic [ref=e56]:
+            - heading &quot;Nokia lumia 1520&quot; [level=4] [ref=e57]:
+              - link &quot;Nokia lumia 1520&quot; [ref=e58]:
+                - /url: prod.html?idp_=2
+            - heading &quot;$820&quot; [level=5] [ref=e59]
+            - paragraph [ref=e60]: The Nokia Lumia 1520 is powered by 2.2GHz quad-core Qualcomm Snapdragon 800 processor and it comes with 2GB of RAM.
+        - generic [ref=e62]:
+          - link [ref=e63]:
+            - /url: prod.html?idp_=3
+          - generic [ref=e64]:
+            - heading &quot;Nexus 6&quot; [level=4] [ref=e65]:
+              - link &quot;Nexus 6&quot; [ref=e66]:
+                - /url: prod.html?idp_=3
+            - heading &quot;$650&quot; [level=5] [ref=e67]
+            - paragraph [ref=e68]: The Motorola Google Nexus 6 is powered by 2.7GHz quad-core Qualcomm Snapdragon 805 processor and it comes with 3GB of RAM.
+        - generic [ref=e70]:
+          - link [ref=e71]:
+            - /url: prod.html?idp_=4
+          - generic [ref=e72]:
+            - heading &quot;Samsung galaxy s7&quot; [level=4] [ref=e73]:
+              - link &quot;Samsung galaxy s7&quot; [ref=e74]:
+                - /url: prod.html?idp_=4
+            - heading &quot;$800&quot; [level=5] [ref=e75]
+            - paragraph [ref=e76]: The Samsung Galaxy S7 is powered by 1.6GHz octa-core it comes with 4GB of RAM. The phone packs 32GB of internal storage that can be expanded up to 200GB via a microSD card.
+        - generic [ref=e78]:
+          - link [ref=e79]:
+            - /url: prod.html?idp_=5
+          - generic [ref=e80]:
+            - heading &quot;Iphone 6 32gb&quot; [level=4] [ref=e81]:
+              - link &quot;Iphone 6 32gb&quot; [ref=e82]:
+                - /url: prod.html?idp_=5
+            - heading &quot;$790&quot; [level=5] [ref=e83]
+            - paragraph [ref=e84]: It comes with 1GB of RAM. The phone packs 16GB of internal storage cannot be expanded. As far as the cameras are concerned, the Apple iPhone 6 packs a 8-megapixel primary camera on the rear and a 1.2-megapixel front shooter for selfies.
+        - generic [ref=e86]:
+          - link [ref=e87]:
+            - /url: prod.html?idp_=6
+          - generic [ref=e88]:
+            - heading &quot;Sony xperia z5&quot; [level=4] [ref=e89]:
+              - link &quot;Sony xperia z5&quot; [ref=e90]:
+                - /url: prod.html?idp_=6
+            - heading &quot;$320&quot; [level=5] [ref=e91]
+            - paragraph [ref=e92]: Sony Xperia Z5 Dual smartphone was launched in September 2015. The phone comes with a 5.20-inch touchscreen display with a resolution of 1080 pixels by 1920 pixels at a PPI of 424 pixels per inch.
+        - generic [ref=e94]:
+          - link [ref=e95]:
+            - /url: prod.html?idp_=7
+          - generic [ref=e96]:
+            - heading &quot;HTC One M9&quot; [level=4] [ref=e97]:
+              - link &quot;HTC One M9&quot; [ref=e98]:
+                - /url: prod.html?idp_=7
+            - heading &quot;$700&quot; [level=5] [ref=e99]
+            - paragraph [ref=e100]: The HTC One M9 is powered by 1.5GHz octa-core Qualcomm Snapdragon 810 processor and it comes with 3GB of RAM. The phone packs 32GB of internal storage that can be expanded up to 128GB via a microSD card.
+      - list [ref=e102]:
+        - listitem [ref=e103]:
+          - button &quot;Previous&quot; [ref=e104]
+        - listitem [ref=e105]:
+          - button &quot;Next&quot; [ref=e106] [cursor=pointer]
+  - generic [ref=e108]:
+    - generic [ref=e111]:
+      - heading &quot;About Us&quot; [level=4] [ref=e112]
+      - paragraph [ref=e113]: We believe performance needs to be validated at every stage of the software development cycle and our open source compatible, massively scalable platform makes that a reality.
+    - generic [ref=e116]:
+      - heading &quot;Get in Touch&quot; [level=4] [ref=e117]
+      - paragraph [ref=e118]: &quot;Address: 2390 El Camino Real&quot;
+      - paragraph [ref=e119]: &quot;Phone: +440 123456&quot;
+      - paragraph [ref=e120]: &quot;Email: demo@blazemeter.com&quot;
+    - heading &quot;PRODUCT STORE&quot; [level=4] [ref=e124]:
+      - img [ref=e125]
+      - text: PRODUCT STORE
+  - contentinfo [ref=e126]:
+    - paragraph [ref=e127]: Copyright © Product Store
+</code></pre>
+<h1>Test source</h1>
+<pre><code class="language-ts">  1  | import { Locator, Page, type Response, expect } from &#39;@playwright/test&#39;;
+  2  | 
+  3  | import { LoginModule } from &#39;../modules/loginModule&#39;;
+  4  | import { NavBarModule } from &#39;../modules/navBarModule&#39;;
+  5  | import { BasePage } from &#39;./basePage&#39;;
+  6  | 
+  7  | export class HomePage extends BasePage {
+  8  |   readonly navBar: NavBarModule;
+  9  |   readonly loginDialog: LoginModule;
+  10 |   readonly phones: Locator;
+  11 |   readonly laptops: Locator;
+  12 |   readonly monitors: Locator;
+  13 |   readonly cardTitle: Locator;
+  14 | 
+  15 |   constructor(page: Page) {
+  16 |     super(page);
+  17 |     this.navBar = new NavBarModule(this.page);
+  18 |     this.loginDialog = new LoginModule(this.page);
+  19 |     this.phones = this.page.getByRole(&#39;link&#39;, { name: &#39;Phones&#39; });
+  20 |     this.laptops = this.page.getByRole(&#39;link&#39;, { name: &#39;Laptops&#39; });
+  21 |     this.monitors = this.page.getByRole(&#39;link&#39;, { name: &#39;Monitors&#39; });
+  22 |     this.cardTitle = this.page.locator(&#39;h4[class=&quot;card-title&quot;]&#39;);
+  23 |   }
+  24 | 
+  25 |   /**
+  26 |    * Click on a category link
+  27 |    * Wait for the backend to respond with the items for the category
+  28 |    * Return the number of items returned by the backend.
+  29 |    * @param link - The link to click on.
+  30 |    * @param expectedCat - The expected category.
+  31 |    * @returns The number of items displayed for the category.
+  32 |    */
+  33 |   private async clickCategoryLink(link: Locator, expectedCat: string): Promise&lt;number&gt; {
+  34 |     let bycatResponse: Response | undefined;
+  35 |     const onResponse = (response: Response) =&gt; {
+  36 |       const request = response.request();
+  37 |       if (!response.url().includes(&#39;api.demoblaze.com/bycat&#39;)) return;
+  38 |       if (request.method() !== &#39;POST&#39;) return;
+  39 |       const body = request.postDataJSON() as { cat?: string } | null;
+  40 |       if (body?.cat !== expectedCat) return;
+  41 |       if (!response.ok()) return;
+  42 |       bycatResponse = response;
+  43 |     };
+  44 |     // Subscribe before the click so a fast bycat response is still observed.
+  45 |     this.page.on(&#39;response&#39;, onResponse);
+  46 |     await link.click();
+&gt; 47 |     await expect
+     |     ^ Error: Expected POST https://api.demoblaze.com/bycat with body cat=&quot;phone&quot; after category click
+  48 |       .poll(() =&gt; bycatResponse !== undefined, {
+  49 |         message: `Expected POST https://api.demoblaze.com/bycat with body cat=&quot;${expectedCat}&quot; after category click`,
+  50 |         timeout: 15000,
+  51 |         intervals: [500],
+  52 |       })
+  53 |       .toBe(true);
+  54 |     this.page.off(&#39;response&#39;, onResponse);
+  55 | 
+  56 |     const payload = (await bycatResponse!.json()) as { Items?: Array&lt;{ cat?: string }&gt; };
+  57 |     const itemCount = payload.Items?.length ?? 0;
+  58 |     expect(itemCount).toBeGreaterThan(0);
+  59 |     expect(payload.Items!.every(item =&gt; item.cat === expectedCat)).toBe(true);
+  60 |     return itemCount;
+  61 |   }
+  62 | 
+  63 |   async clickCategory(category: string): Promise&lt;number&gt; {
+  64 |     switch (category.toLowerCase()) {
+  65 |       case &#39;phones&#39;:
+  66 |         return await this.clickCategoryLink(this.phones, &#39;phone&#39;);
+  67 |       case &#39;laptops&#39;:
+  68 |         return await this.clickCategoryLink(this.laptops, &#39;notebook&#39;);
+  69 |       case &#39;monitors&#39;:
+  70 |         return await this.clickCategoryLink(this.monitors, &#39;monitor&#39;);
+  71 |       default:
+  72 |         throw new Error(`Unknown category: ${category}`);
+  73 |     }
+  74 |   }
+  75 | }
+  76 | 
+</code></pre>
