@@ -1,7 +1,7 @@
 export type TestEnvironmentName = 'qa' | 'prod';
 
 /** `qa` / `prod` block in utils/user.json (no password in file). */
-export interface TestAccountEnvCredentials {
+interface TestAccountEnvCredentials {
   username: string;
   email: string;
 }
