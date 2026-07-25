@@ -30,6 +30,7 @@ export default defineConfig({
     ],
   ],
   use: {
+    actionTimeout: Global.ACTION_TIMEOUT,
     baseURL: Global.FRONTEND_BASE_URL,
     trace: Global.TRACE,
     screenshot: Global.SCREENSHOT,

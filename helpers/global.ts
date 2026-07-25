@@ -53,6 +53,7 @@ export default class Global {
   public static GLOBAL_TIMEOUT = process.env.globalTimeout ? parseInt(process.env.globalTimeout) : 3600000;
   public static TIMEOUT = process.env.timeout ? parseInt(process.env.timeout) : 60000;
   public static EXPECT_TIMEOUT = process.env.expectTimeout ? parseInt(process.env.expectTimeout) : 10000;
+  public static ACTION_TIMEOUT = process.env.actionTimeout ? parseInt(process.env.actionTimeout) : 15000;
   public static TRACE = process.env.trace
     ? (process.env.trace as 'on' | 'off' | 'retain-on-failure' | 'on-first-retry' | 'retry-with-trace')
     : 'off';

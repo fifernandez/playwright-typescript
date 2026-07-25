@@ -3,45 +3,50 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "allChecks": "tsc --noEmit && npx prettier . --check && npx eslint . && npm run knip",
-    "allureReport": "npx allure generate ./out/results/allure --clean -o ./out/reports/allure/static && npx allure open ./out/reports/allure/static",
-    "check-style": "npx prettier . --check",
+    "allChecks": "tsc --noEmit && prettier . --check && eslint . && npm run knip",
+    "allureReport": "allure generate ./out/results/allure --clean -o ./out/reports/allure/static && allure open ./out/reports/allure/static",
+    "check-style": "prettier . --check",
     "clean": "rimraf ./out",
-    "format": "npx prettier . --write",
+    "format": "prettier . --write",
     "knip": "knip",
-    "lint": "npx eslint .",
+    "lint": "eslint .",
     "pretest": "tsc --noEmit",
     "prepare": "husky",
-    "test": "npx playwright test"
+    "test": "playwright test"
   },
   "keywords": [],
   "author": "fifernandez",
   "license": "ISC",
   "description": "",
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24",
+    "npm": ">=11.10.0"
+  },
   "overrides": {
     "@tootallnate/once": "^3.0.1",
-    "tar": "^7.5.11"
+    "minimatch": "^10.2.5",
+    "tar": "^7.5.22"
   },
   "devDependencies": {
-    "@faker-js/faker": "10.4.0",
-    "@playwright/test": "1.59.1",
+    "@faker-js/faker": "10.5.0",
+    "@playwright/test": "1.61.1",
     "@trivago/prettier-plugin-sort-imports": "6.0.2",
-    "@types/node": "25.5.0",
-    "@typescript-eslint/eslint-plugin": "8.58.0",
-    "@typescript-eslint/parser": "8.58.0",
-    "ajv": "8.18.0",
-    "allure-commandline": "2.38.1",
-    "allure-js-commons": "3.6.0",
-    "allure-playwright": "3.6.0",
-    "dotenv": "17.3.1",
-    "eslint": "10.1.0",
+    "@types/node": "26.1.1",
+    "@typescript-eslint/eslint-plugin": "8.65.0",
+    "@typescript-eslint/parser": "8.65.0",
+    "ajv": "8.20.0",
+    "allure-commandline": "2.43.0",
+    "allure-js-commons": "3.10.2",
+    "allure-playwright": "3.10.2",
+    "dotenv": "17.4.2",
+    "eslint": "10.7.0",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-playwright": "2.10.1",
+    "eslint-plugin-playwright": "2.10.5",
     "husky": "9.1.7",
-    "knip": "6.1.1",
-    "prettier": "3.8.1",
+    "knip": "6.29.0",
+    "prettier": "3.9.6",
     "rimraf": "6.1.3",
-    "ortoni-report": "4.0.8",
-    "typescript": "6.0.2"
+    "ortoni-report": "4.10.0",
+    "typescript": "6.0.3"
   }
 }
