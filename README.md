@@ -90,14 +90,19 @@ By default browser will be headless and will run in the background. If you want 
 You can choose which test you want to run using test tags. Like:
 
 ```bash
-    npx playwright test --grep @Smoke
+    npx playwright test --grep @smoke
 ```
 
 You can also use operators like:
 
 ```bash
-    npx playwright test --grep '@Smoke | @Regression'
+    npx playwright test --grep '@smoke|@regression'
 ```
+
+CI runs these via reusable workflow `.github/workflows/run-playwright.yml`. If you use branch protection required checks, the names are:
+
+- Smoke: `smoke / run`
+- Regression: `regression / run`
 
 ### - Running test in Parallel:
 
