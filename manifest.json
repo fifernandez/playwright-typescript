@@ -1,0 +1,12 @@
+{
+  "regression": [
+    "playwright",
+    "ortoni",
+    "allure"
+  ],
+  "smoke": [
+    "playwright",
+    "ortoni",
+    "allure"
+  ]
+}

@@ -1,5 +1,10 @@
 #Node
 node_modules/
+out/
+.vscode/
+.specstory/
+.husky/
+.cursorindexingignore
 
 #Reports & Results
 /test-results/
