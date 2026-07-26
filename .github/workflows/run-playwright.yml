@@ -119,10 +119,34 @@ jobs:
             echo "has_files=true" >> "$GITHUB_OUTPUT"
           fi
       - name: Deploy reports to reports branch
+        id: deploy-reports
         if: always() && steps.stage-reports.outputs.has_files == 'true'
         uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           branch: reports
           folder: deploy
+          clean: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout reports branch for manifest
+        if: always() && steps.deploy-reports.outcome == 'success'
+        uses: actions/checkout@v6.0.2
+        with:
+          ref: reports
+          path: reports-root
+      - name: Generate reports manifest
+        if: always() && steps.deploy-reports.outcome == 'success'
+        working-directory: reports-root
+        run: node generate_manifest.js
+      - name: Stage manifest for deploy
+        if: always() && steps.deploy-reports.outcome == 'success'
+        run: |
+          mkdir -p manifest-deploy
+          cp reports-root/manifest.json manifest-deploy/
+      - name: Deploy updated manifest.json
+        if: always() && steps.deploy-reports.outcome == 'success'
+        uses: JamesIves/github-pages-deploy-action@v4.8.0
+        with:
+          branch: reports
+          folder: manifest-deploy
           clean: false
           token: ${{ secrets.GITHUB_TOKEN }}
