@@ -136,7 +136,12 @@ jobs:
       - name: Generate reports manifest
         if: always() && steps.deploy-reports.outcome == 'success'
         working-directory: reports-root
-        run: node generate_manifest.js
+        run: |
+          # Parent checkout has package.json "type": "module", so plain .js
+          # is treated as ESM. Run as .cjs to keep require() working.
+          cp generate_manifest.js generate_manifest.cjs
+          node generate_manifest.cjs
+          rm -f generate_manifest.cjs
       - name: Stage manifest for deploy
         if: always() && steps.deploy-reports.outcome == 'success'
         run: |
