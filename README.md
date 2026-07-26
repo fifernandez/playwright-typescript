@@ -2,6 +2,8 @@
 
 This is a [Playwright](https://playwright.dev/) project for runing End-To-End automated test. With this, you can do frontend and backend test, or a mix of both.
 
+Reports: [runs](https://fifernandez.github.io/playwright-typescript/)
+
 | Job        | Status  | Reports |
 | ---------- | ------- | ------- |
 | Smoke      | [![Smoke Tests](https://github.com/fifernandez/playwright-typescript/actions/workflows/smoke-tests.yml/badge.svg)](https://github.com/fifernandez/playwright-typescript/actions/workflows/smoke-tests.yml)                | [<img src="https://avatars.githubusercontent.com/u/5879127?s=200&v=4" width="25" alt="Allure Report"/>](https://fifernandez.github.io/playwright-typescript/smoke/allure) [<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/playwright/playwright-original.svg" width="25" alt="Playwright Report"/>](https://fifernandez.github.io/playwright-typescript/smoke/playwright) [<img src="https://cdn-icons-png.freepik.com/256/17258/17258058.png?semt=ais_hybrid" width="25" alt="Ortoni Report"/>](https://fifernandez.github.io/playwright-typescript/smoke/ortoni)            |
@@ -90,14 +92,19 @@ By default browser will be headless and will run in the background. If you want 
 You can choose which test you want to run using test tags. Like:
 
 ```bash
-    npx playwright test --grep @Smoke
+    npx playwright test --grep @smoke
 ```
 
 You can also use operators like:
 
 ```bash
-    npx playwright test --grep '@Smoke | @Regression'
+    npx playwright test --grep '@smoke|@regression'
 ```
+
+CI runs these via reusable workflow `.github/workflows/run-playwright.yml`. If you use branch protection required checks, the names are:
+
+- Smoke: `smoke / run`
+- Regression: `regression / run`
 
 ### - Running test in Parallel:
 
