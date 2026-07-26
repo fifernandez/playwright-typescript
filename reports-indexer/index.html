@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Automation Reports</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: 'Courier New', Courier, monospace;
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      #sidebar {
+        width: 280px;
+        min-width: 280px;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        transition:
+          width 0.2s ease,
+          min-width 0.2s ease;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      #sidebar.collapsed {
+        width: 40px;
+        min-width: 40px;
+      }
+
+      #sidebar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 12px 8px 14px;
+        flex-shrink: 0;
+        border-bottom: 1px solid #333;
+      }
+      #sidebar-title {
+        font-size: 14px;
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      #collapse-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        padding: 2px 6px;
+        border-radius: 4px;
+        flex-shrink: 0;
+        line-height: 1;
+      }
+      #collapse-btn:hover {
+        opacity: 0.7;
+      }
+
+      #sidebar-tree {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 8px;
+      }
+
+      #sidebar-footer {
+        border-top: 1px solid #333;
+        padding: 10px 12px;
+        flex-shrink: 0;
+        position: relative;
+      }
+
+      #theme-btn {
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        font-weight: bold;
+        padding: 5px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      #theme-dropdown {
+        position: absolute;
+        bottom: calc(100% + 4px);
+        left: 12px;
+        border-radius: 8px;
+        overflow: hidden;
+        min-width: 160px;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+        visibility: hidden;
+        opacity: 0;
+        transition:
+          opacity 0.15s,
+          visibility 0.15s;
+      }
+      #theme-dropdown.open {
+        visibility: visible;
+        opacity: 1;
+      }
+      .theme-option {
+        font-family: 'Courier New', monospace;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 8px 16px;
+        cursor: pointer;
+        display: block;
+        width: 100%;
+        text-align: left;
+        border: none;
+      }
+      .theme-option.active::before {
+        content: '▶ ';
+      }
+
+      #sidebar.collapsed #sidebar-title,
+      #sidebar.collapsed #sidebar-tree,
+      #sidebar.collapsed #theme-btn span,
+      #sidebar.collapsed #sidebar-footer {
+        display: none;
+      }
+      #sidebar.collapsed #sidebar-header {
+        justify-content: center;
+        padding: 12px 0;
+        border-bottom: none;
+      }
+
+      #resizer {
+        width: 8px;
+        cursor: col-resize;
+        flex-shrink: 0;
+        transition: background 0.2s;
+      }
+      #resizer:hover,
+      #resizer.dragging {
+        background: #555 !important;
+      }
+
+      #content {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      #report-frame {
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: none;
+      }
+      #placeholder {
+        text-align: center;
+        opacity: 0.25;
+        font-size: 13px;
+      }
+
+      .tree-row {
+        display: flex;
+        align-items: center;
+        margin: 3px 0;
+      }
+      .tree-children {
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.2s ease;
+      }
+      .tree-children.open {
+        max-height: 99999px;
+      }
+      .node {
+        cursor: pointer;
+        user-select: none;
+      }
+      .node:hover {
+        filter: brightness(1.25);
+      }
+      .caret {
+        font-size: 10px;
+        margin-left: 6px;
+        opacity: 0.6;
+        transition: transform 0.2s;
+        display: inline-block;
+      }
+      .caret.open {
+        transform: rotate(90deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="sidebar">
+      <div id="sidebar-header">
+        <span id="sidebar-title">Automation</span>
+        <button id="collapse-btn" onclick="toggleSidebar()">◀</button>
+      </div>
+      <div id="sidebar-tree">
+        <div id="tree"></div>
+      </div>
+      <div id="sidebar-footer">
+        <div id="theme-dropdown">
+          <button class="theme-option" data-theme="amber" onclick="applyTheme('amber')">amber phosphor</button>
+          <button class="theme-option" data-theme="atomOneDark" onclick="applyTheme('atomOneDark')">
+            atom one dark
+          </button>
+          <button class="theme-option" data-theme="dracula" onclick="applyTheme('dracula')">dracula</button>
+          <button class="theme-option" data-theme="fran" onclick="applyTheme('fran')">fran</button>
+          <button class="theme-option" data-theme="github" onclick="applyTheme('github')">github dark</button>
+        </div>
+        <button id="theme-btn" onclick="toggleDropdown(event)"><span>⬡ theme ▾</span></button>
+      </div>
+    </div>
+
+    <div id="resizer"></div>
+
+    <div id="content">
+      <div id="placeholder">← select a report</div>
+      <iframe id="report-frame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+    </div>
+
+    <script>
+      /* ============================================================
+   THEMES
+   ============================================================ */
+      const THEMES = {
+        dracula: {
+          bg: '#282a36',
+          border: '#44475a',
+          suite: { border: '#bd93f9', text: '#bd93f9', bg: '#313442' },
+          rep: { border: '#ff79c6', text: '#ff79c6', bg: '#313442' },
+          hover: '#44475a',
+          pipeSuite: '#bd93f9',
+          btn: { border: '#bd93f9', text: '#bd93f9', bg: '#313442' },
+          dropdown: { bg: '#313442', border: '#bd93f9', text: '#f8f8f2', activeBg: '#44475a' },
+          headerText: '#f8f8f2',
+          footerBorder: '#44475a',
+        },
+        atomOneDark: {
+          bg: '#282c34',
+          border: '#3e4451',
+          suite: { border: '#61afef', text: '#61afef', bg: '#2c313a' },
+          rep: { border: '#98c379', text: '#98c379', bg: '#2c313a' },
+          hover: '#3e4451',
+          pipeSuite: '#61afef',
+          btn: { border: '#56b6c2', text: '#56b6c2', bg: '#2c313a' },
+          dropdown: { bg: '#2c313a', border: '#56b6c2', text: '#abb2bf', activeBg: '#3e4451' },
+          headerText: '#abb2bf',
+          footerBorder: '#3e4451',
+        },
+        fran: {
+          bg: '#0d0d0d',
+          border: '#222',
+          suite: { border: '#4a7fa5', text: '#7ab8d4', bg: '#0a0e1a' },
+          rep: { border: '#5cb85c', text: '#5cb85c', bg: '#0a1a0a' },
+          hover: '#1a1a1a',
+          pipeSuite: '#4a7fa5',
+          btn: { border: '#c8a96e', text: '#c8a96e', bg: '#111' },
+          dropdown: { bg: '#111', border: '#c8a96e', text: '#c8a96e', activeBg: '#1a1400' },
+          headerText: '#c8a96e',
+          footerBorder: '#333',
+        },
+        amber: {
+          bg: '#0d0d0d',
+          border: '#2a1f00',
+          suite: { border: '#cc7a00', text: '#ffb000', bg: '#110a00' },
+          rep: { border: '#ffb000', text: '#ffe066', bg: '#1a1000' },
+          hover: '#2a2000',
+          pipeSuite: '#ffb000',
+          btn: { border: '#ffb000', text: '#ffb000', bg: '#110a00' },
+          dropdown: { bg: '#110a00', border: '#ffb000', text: '#ffb000', activeBg: '#1a1000' },
+          headerText: '#ffb000',
+          footerBorder: '#2a1f00',
+        },
+        github: {
+          bg: '#0d1117',
+          border: '#21262d',
+          suite: { border: '#388bfd', text: '#58a6ff', bg: '#161b22' },
+          rep: { border: '#3fb950', text: '#3fb950', bg: '#161b22' },
+          hover: '#21262d',
+          pipeSuite: '#58a6ff',
+          btn: { border: '#388bfd', text: '#58a6ff', bg: '#161b22' },
+          dropdown: { bg: '#161b22', border: '#388bfd', text: '#8b949e', activeBg: '#21262d' },
+          headerText: '#8b949e',
+          footerBorder: '#21262d',
+        },
+      };
+
+      /* ============================================================
+   DATA — only these report folders are shown if they exist
+   ============================================================ */
+      const REPORTS = ['playwright', 'ortoni', 'allure'];
+
+      let MANIFEST = {};
+      let sidebarCollapsed = false;
+      let sidebarWidth = 280;
+      let dropdownOpen = false;
+      let allOpen = false;
+
+      /* ============================================================
+   SIDEBAR
+   ============================================================ */
+      function toggleSidebar() {
+        sidebarCollapsed = !sidebarCollapsed;
+        const sidebar = document.getElementById('sidebar');
+        const btn = document.getElementById('collapse-btn');
+        if (sidebarCollapsed) {
+          sidebarWidth = parseInt(sidebar.style.width) || sidebarWidth;
+          sidebar.style.width = '40px';
+          sidebar.style.minWidth = '40px';
+        } else {
+          sidebar.style.width = sidebarWidth + 'px';
+          sidebar.style.minWidth = sidebarWidth + 'px';
+        }
+        sidebar.classList.toggle('collapsed', sidebarCollapsed);
+        btn.textContent = sidebarCollapsed ? '▶' : '◀';
+      }
+
+      /* ============================================================
+   DROPDOWN
+   ============================================================ */
+      function toggleDropdown(e) {
+        e.stopPropagation();
+        dropdownOpen = !dropdownOpen;
+        document.getElementById('theme-dropdown').classList.toggle('open', dropdownOpen);
+      }
+      document.addEventListener('click', () => {
+        dropdownOpen = false;
+        document.getElementById('theme-dropdown').classList.remove('open');
+      });
+
+      /* ============================================================
+   TOGGLE ALL
+   ============================================================ */
+      function toggleAll() {
+        const rootChildren = document.querySelector('#tree > .tree-children');
+        if (!rootChildren) return;
+        allOpen = !allOpen;
+        rootChildren.classList.toggle('open', allOpen);
+        document.getElementById('title-caret').classList.toggle('open', allOpen);
+      }
+
+      /* ============================================================
+   REPORT VIEWER
+   ============================================================ */
+      function openReport(url) {
+        const frame = document.getElementById('report-frame');
+        const placeholder = document.getElementById('placeholder');
+        frame.src = url;
+        frame.style.display = 'block';
+        placeholder.style.display = 'none';
+      }
+
+      /* ============================================================
+   RESIZER
+   ============================================================ */
+      const resizerEl = document.getElementById('resizer');
+      const sidebarEl = document.getElementById('sidebar');
+      let isResizing = false;
+
+      resizerEl.addEventListener('mousedown', () => {
+        isResizing = true;
+        resizerEl.classList.add('dragging');
+        document.body.style.userSelect = 'none';
+      });
+      document.addEventListener('mousemove', e => {
+        if (!isResizing) return;
+        const MIN_W = 180,
+          MAX_W = window.innerWidth - 300;
+        const w = Math.max(MIN_W, Math.min(MAX_W, e.clientX));
+        sidebarEl.style.width = w + 'px';
+        sidebarEl.style.minWidth = w + 'px';
+        sidebarWidth = w;
+      });
+      document.addEventListener('mouseup', () => {
+        isResizing = false;
+        resizerEl.classList.remove('dragging');
+        document.body.style.userSelect = '';
+      });
+
+      /* ============================================================
+   MANIFEST
+   ============================================================ */
+      async function loadManifest() {
+        try {
+          const res = await fetch('manifest.json');
+          if (!res.ok) throw new Error('not found');
+          MANIFEST = await res.json();
+        } catch (e) {
+          console.error('Could not load manifest.json:', e.message);
+          MANIFEST = {};
+        }
+      }
+
+      /* ============================================================
+   APPLY THEME
+   ============================================================ */
+      async function applyTheme(key) {
+        const T = THEMES[key];
+
+        document.body.style.background = T.bg;
+        const sidebar = document.getElementById('sidebar');
+        sidebar.style.background = T.bg;
+        sidebar.style.borderRight = `1px solid ${T.border}`;
+        document.getElementById('sidebar-title').style.color = T.headerText;
+        document.getElementById('collapse-btn').style.color = T.headerText;
+        document.getElementById('sidebar-header').style.borderColor = T.border;
+        document.getElementById('sidebar-footer').style.borderColor = T.footerBorder;
+        document.getElementById('placeholder').style.color = T.headerText;
+        document.getElementById('resizer').style.background = T.border;
+
+        const btn = document.getElementById('theme-btn');
+        btn.style.border = `1.5px solid ${T.btn.border}`;
+        btn.style.color = T.btn.text;
+        btn.style.background = T.btn.bg;
+
+        const dd = document.getElementById('theme-dropdown');
+        dd.style.background = T.dropdown.bg;
+        dd.style.border = `1px solid ${T.dropdown.border}`;
+
+        document.querySelectorAll('.theme-option').forEach(opt => {
+          const isActive = opt.dataset.theme === key;
+          opt.style.background = isActive ? T.dropdown.activeBg : T.dropdown.bg;
+          opt.style.color = T.dropdown.text;
+          opt.classList.toggle('active', isActive);
+        });
+
+        if (!document.querySelector('.tree-children')) {
+          await buildTree(T);
+        } else {
+          recolorTree(T);
+        }
+
+        dropdownOpen = false;
+        dd.classList.remove('open');
+      }
+
+      /* ============================================================
+   RECOLOR
+   ============================================================ */
+      function recolorTree(T) {
+        document.querySelectorAll('[data-cls]').forEach(el => {
+          const t = T[el.dataset.cls];
+          if (!t) return;
+          el.style.color = t.text;
+          el.style.borderColor = t.border;
+          el.style.background = t.bg;
+          const caret = el.querySelector('.caret');
+          if (caret) caret.style.color = t.text;
+          el._themeHover = T.hover;
+          el._themeBg = t.bg;
+        });
+        document.querySelectorAll('[data-pipe]').forEach(el => {
+          el.style.color = T[el.dataset.pipe];
+        });
+      }
+
+      /* ============================================================
+   TREE BUILDER
+   ============================================================ */
+      async function buildTree(T) {
+        await loadManifest();
+        const tree = document.getElementById('tree');
+        tree.innerHTML = '';
+
+        function makeBox(cls, text, expandable) {
+          const t = T[cls];
+          const el = document.createElement('span');
+          el.dataset.cls = cls;
+          el._themeBg = t.bg;
+          el._themeHover = T.hover;
+          el.style.cssText = `color:${t.text};border:1.5px solid ${t.border};background:${t.bg};border-radius:8px;padding:3px 12px;font-size:13px;font-weight:bold;display:inline-flex;align-items:center;white-space:nowrap;`;
+          el.textContent = text;
+          if (expandable) {
+            el.classList.add('node');
+            const caret = document.createElement('span');
+            caret.className = 'caret';
+            caret.style.color = t.text;
+            caret.textContent = '▶';
+            el.appendChild(caret);
+          }
+          el.addEventListener('mouseenter', () => (el.style.background = el._themeHover));
+          el.addEventListener('mouseleave', () => (el.style.background = el._themeBg));
+          return el;
+        }
+
+        function makePipe(pipe, pipeKey, isLast) {
+          const sp = document.createElement('span');
+          sp.dataset.pipe = pipeKey;
+          sp.style.cssText = `color:${pipe};font-size:12px;white-space:pre;line-height:1;`;
+          sp.textContent = (isLast ? '└' : '├') + '─ ';
+          return sp;
+        }
+
+        function makeRow(pipeColor, pipeKey, isLast, content, indent) {
+          const row = document.createElement('div');
+          row.className = 'tree-row';
+          if (indent) {
+            const sp = document.createElement('span');
+            sp.dataset.pipe = indent.key;
+            sp.style.cssText = `color:${indent.color};font-size:12px;white-space:pre;line-height:1;`;
+            sp.textContent = (indent.last ? ' ' : '│') + '   ';
+            row.appendChild(sp);
+          }
+          row.appendChild(makePipe(pipeColor, pipeKey, isLast));
+          row.appendChild(content);
+          return row;
+        }
+
+        function makeChildren() {
+          const div = document.createElement('div');
+          div.className = 'tree-children';
+          return div;
+        }
+
+        function bindToggle(boxEl, childrenEl) {
+          boxEl.addEventListener('click', () => {
+            const isOpen = childrenEl.classList.toggle('open');
+            const caret = boxEl.querySelector('.caret');
+            if (caret) caret.classList.toggle('open', isOpen);
+          });
+        }
+
+        // Title
+        const titleBox = document.createElement('div');
+        titleBox.style.cssText =
+          'display:inline-flex;align-items:center;cursor:pointer;margin-bottom:6px;padding:4px 0;';
+        titleBox.onclick = toggleAll;
+        const titleSpan = document.createElement('span');
+        titleSpan.style.cssText = `color:${T.suite.text};font-size:14px;font-weight:bold;`;
+        titleSpan.textContent = 'reports';
+        const titleCaret = document.createElement('span');
+        titleCaret.id = 'title-caret';
+        titleCaret.className = 'caret';
+        titleCaret.style.color = T.suite.text;
+        titleCaret.textContent = '▶';
+        titleBox.appendChild(titleSpan);
+        titleBox.appendChild(titleCaret);
+        tree.appendChild(titleBox);
+
+        const rootChildren = makeChildren();
+        tree.appendChild(rootChildren);
+
+        // Structure: suite → report
+        const suites = Object.keys(MANIFEST);
+        suites.forEach((suite, si) => {
+          const isLastSuite = si === suites.length - 1;
+          const suiteBox = makeBox('suite', suite, true);
+          rootChildren.appendChild(makeRow(T.pipeSuite, 'pipeSuite', isLastSuite, suiteBox, null));
+          const suiteChildren = makeChildren();
+          rootChildren.appendChild(suiteChildren);
+          bindToggle(suiteBox, suiteChildren);
+
+          const reps = MANIFEST[suite];
+          reps.forEach((rep, ri) => {
+            const isLastRep = ri === reps.length - 1;
+            const repBox = makeBox('rep', rep, false);
+            repBox.classList.add('node');
+            repBox.style.cursor = 'pointer';
+            const url = rep === 'allure' ? suite + '/' + rep + '/' : suite + '/' + rep + '/index.html';
+            repBox.onclick = e => {
+              e.stopPropagation();
+              openReport(url);
+            };
+            suiteChildren.appendChild(
+              makeRow(T.pipeSuite, 'pipeSuite', isLastRep, repBox, {
+                color: T.pipeSuite,
+                key: 'pipeSuite',
+                last: isLastSuite,
+              }),
+            );
+          });
+        });
+      }
+
+      // Init
+      (async () => {
+        await applyTheme('dracula');
+      })();
+    </script>
+  </body>
+</html>
