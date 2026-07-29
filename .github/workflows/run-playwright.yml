@@ -76,34 +76,71 @@ jobs:
           name: ortoni-report-${{ inputs.suite }}
           path: out/reports/ortoni/
           retention-days: 30
-      - name: Get Allure Report history
+      - name: Get previous reports
         uses: actions/checkout@v6.0.2
         if: always()
         continue-on-error: true
         with:
           ref: reports
-          path: reports/allure/${{ inputs.suite }}
-      - name: Build Allure Report
-        uses: simple-elf/allure-report-action@385367cde61ac68c2568a117f7579f7f148dc459
+          path: reports-prev
+      - name: Restore Allure history.jsonl
         if: always()
-        id: allure-report
-        with:
-          allure_results: out/results/allure
-          gh_pages: reports/allure/${{ inputs.suite }}
-          allure_report: ${{ inputs.suite }}/allure/allure-report
-          allure_history: ${{ inputs.suite }}/allure/allure-history
-          keep_reports: 20
-          subfolder: ${{ inputs.suite }}/allure
+        run: |
+          SUITE="${{ inputs.suite }}"
+          mkdir -p out/results
+          # Persisted on the reports branch at <suite>/allure/history.jsonl
+          if [ -f "reports-prev/${SUITE}/allure/history.jsonl" ]; then
+            cp "reports-prev/${SUITE}/allure/history.jsonl" out/results/allure-history.jsonl
+            echo "Restored Allure history ($(wc -l < out/results/allure-history.jsonl) entries)"
+          else
+            echo "No previous Allure history.jsonl found for ${SUITE}"
+          fi
+      - name: Build Allure Report
+        if: always()
+        run: |
+          rm -rf out/reports/allure
+          # Uses allurerc.mjs (historyPath: out/results/allure-history.jsonl)
+          npx allure generate ./out/results/allure --history-limit 20
       - name: Stage reports for deploy
         id: stage-reports
         if: always()
         run: |
           SUITE="${{ inputs.suite }}"
+          RUN_NUM="${{ github.run_number }}"
+          KEEP_REPORTS=20
           mkdir -p deploy
 
-          if [ -d "${SUITE}/allure/allure-history" ]; then
-            cp -a "${SUITE}/allure/allure-history/." deploy/
+          if [ -d out/reports/allure ]; then
+            mkdir -p "deploy/${SUITE}/allure/${RUN_NUM}"
+
+            # Keep previous numbered Allure runs (same idea as the old action)
+            if [ -d "reports-prev/${SUITE}/allure" ]; then
+              cp -a "reports-prev/${SUITE}/allure/." "deploy/${SUITE}/allure/"
+            fi
+
+            # Publish this run and point the suite index at it
+            rm -rf "deploy/${SUITE}/allure/${RUN_NUM}"
+            mkdir -p "deploy/${SUITE}/allure/${RUN_NUM}"
+            cp -a out/reports/allure/. "deploy/${SUITE}/allure/${RUN_NUM}/"
+            printf '%s\n' \
+              '<!DOCTYPE html>' \
+              '<meta charset="utf-8">' \
+              "<meta http-equiv=\"refresh\" content=\"0; url=${RUN_NUM}/\">" \
+              "<title>Redirecting to Allure report #${RUN_NUM}</title>" \
+              "<a href=\"${RUN_NUM}/\">Allure report #${RUN_NUM}</a>" \
+              > "deploy/${SUITE}/allure/index.html"
+
+            # Persist Allure 3 history for the next workflow run
+            if [ -f out/results/allure-history.jsonl ]; then
+              cp out/results/allure-history.jsonl "deploy/${SUITE}/allure/history.jsonl"
+            fi
+
+            # Drop oldest numbered runs, keep the latest KEEP_REPORTS
+            cd "deploy/${SUITE}/allure"
+            ls -1d [0-9]* 2>/dev/null | sort -n | head -n "-${KEEP_REPORTS}" | xargs -r rm -rf
+            cd "${GITHUB_WORKSPACE}"
           fi
+
           if [ -d out/reports/playwright ]; then
             mkdir -p "deploy/${SUITE}/playwright"
             cp -a out/reports/playwright/. "deploy/${SUITE}/playwright/"
