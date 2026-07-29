@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "allChecks": "tsc --noEmit && prettier . --check && eslint . && npm run knip",
-    "allureReport": "rimraf ./out/reports/allure && allure generate ./out/results/allure && allure open ./out/reports/allure",
+    "allureReport": "node ./utils/generate-allure-report.mjs",
     "check-style": "prettier . --check",
     "clean": "rimraf ./out",
     "format": "prettier . --write",
@@ -52,7 +52,8 @@
   "knip": {
     "ignore": [
       "allurerc.mjs",
-      "reports-indexer/**"
+      "reports-indexer/**",
+      "utils/generate-allure-report.mjs"
     ]
   }
 }

@@ -128,6 +128,11 @@ For seeing reports, after test execution run this commands.
   npm run allureReport
   ```
 
+  Archives each local run under `out/reports/allure/<n>/` (same idea as CI),
+  stamps History links, and serves all runs on `http://localhost:5252` so you can
+  move between past reports from the History tab. Use `ALLURE_NO_OPEN=1` to only
+  generate/archive without starting the server.
+
 - Ortoni:
   Under: `out/reports/ortoni/index.html`
 
