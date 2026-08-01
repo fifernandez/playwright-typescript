@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "allChecks": "tsc --noEmit && prettier . --check && eslint . && npm run knip",
-    "allureReport": "allure generate ./out/results/allure --clean -o ./out/reports/allure/static && allure open ./out/reports/allure/static",
+    "allureReport": "node ./utils/generate-allure-report.mjs",
     "check-style": "prettier . --check",
     "clean": "rimraf ./out",
     "format": "prettier . --write",
@@ -24,6 +24,7 @@
   },
   "overrides": {
     "@tootallnate/once": "^3.0.1",
+    "adm-zip": "^0.6.0",
     "minimatch": "^10.2.5",
     "tar": "^7.5.22"
   },
@@ -35,8 +36,7 @@
     "@typescript-eslint/eslint-plugin": "8.65.0",
     "@typescript-eslint/parser": "8.65.0",
     "ajv": "8.20.0",
-    "allure-commandline": "2.43.0",
-    "allure-js-commons": "3.10.2",
+    "allure": "3.14.3",
     "allure-playwright": "3.10.2",
     "dotenv": "17.4.2",
     "eslint": "10.7.0",
@@ -44,14 +44,16 @@
     "eslint-plugin-playwright": "2.10.5",
     "husky": "9.1.7",
     "knip": "6.29.0",
+    "ortoni-report": "4.10.0",
     "prettier": "3.9.6",
     "rimraf": "6.1.3",
-    "ortoni-report": "4.10.0",
     "typescript": "6.0.3"
   },
   "knip": {
     "ignore": [
-      "reports-indexer/**"
+      "allurerc.mjs",
+      "reports-indexer/**",
+      "utils/generate-allure-report.mjs"
     ]
   }
 }
