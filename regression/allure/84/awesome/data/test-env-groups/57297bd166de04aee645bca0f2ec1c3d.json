@@ -1,0 +1,1 @@
+{"id":"57297bd166de04aee645bca0f2ec1c3d","fullName":"tests/api/posts.spec.ts:31:3","name":"ID-101 | Verify Post endpoint amount of returned items is 100","status":"passed","testResultsByEnv":{"default":"20c747168508f7f4ccaacc10cecdc48b"}}
