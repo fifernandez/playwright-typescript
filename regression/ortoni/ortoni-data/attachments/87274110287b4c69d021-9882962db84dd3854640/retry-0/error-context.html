@@ -10,15 +10,20 @@
 <li>Location: tests/frontend/homePage.spec.ts:5:1</li>
 </ul>
 <h1>Error details</h1>
-<pre><code>Error: Expected POST https://api.demoblaze.com/bycat with body cat=&quot;phone&quot; after category click
+<pre><code>Error: Verify number of items displayed for Phones category is the same as the number of items returned by the backend
 
-expect(received).toBe(expected) // Object.is equality
+expect(locator).toHaveCount(expected) failed
 
-Expected: true
-Received: false
+Locator:  locator(&#39;h4[class=&quot;card-title&quot;]&#39;)
+Expected: 7
+Received: 16
+Timeout:  10000ms
 
-Call Log:
-- Timeout 15000ms exceeded while waiting on the predicate
+Call log:
+  - Verify number of items displayed for Phones category is the same as the number of items returned by the backend with timeout 10000ms
+  - waiting for locator(&#39;h4[class=&quot;card-title&quot;]&#39;)
+    24 × locator resolved to 16 elements
+       - unexpected value &quot;16&quot;
 </code></pre>
 <h1>Page snapshot</h1>
 <pre><code class="language-yaml">- generic [ref=e1]:
@@ -26,8 +31,6 @@ Call Log:
   - navigation [ref=e2]:
     - link &quot;PRODUCT STORE&quot; [ref=e3] [cursor=pointer]:
       - /url: index.html
-      - img [ref=e4]
-      - text: PRODUCT STORE
     - list [ref=e6]:
       - listitem [ref=e7]:
         - link &quot;Home (current)&quot; [ref=e8] [cursor=pointer]:
@@ -57,10 +60,8 @@ Call Log:
         - listitem [ref=e24] [cursor=pointer]
         - listitem [ref=e25] [cursor=pointer]
       - img &quot;Third slide&quot; [ref=e28]
-      - button &quot;Previous&quot; [ref=e29] [cursor=pointer]:
-        - generic [ref=e31]: Previous
-      - button &quot;Next&quot; [ref=e32] [cursor=pointer]:
-        - generic [ref=e34]: Next
+      - button &quot;Previous&quot; [ref=e29] [cursor=pointer]
+      - button &quot;Next&quot; [ref=e32] [cursor=pointer]
   - generic [ref=e36]:
     - generic [ref=e38]:
       - link &quot;CATEGORIES&quot; [ref=e39] [cursor=pointer]:
@@ -71,102 +72,209 @@ Call Log:
         - /url: &quot;#&quot;
       - link &quot;Monitors&quot; [ref=e42] [cursor=pointer]:
         - /url: &quot;#&quot;
-    - list [ref=e45]:
-      - listitem [ref=e46]:
-        - button &quot;Previous&quot; [ref=e47]
-      - listitem [ref=e48]:
-        - button &quot;Next&quot; [ref=e49] [cursor=pointer]
-  - generic [ref=e51]:
-    - generic [ref=e54]:
-      - heading &quot;About Us&quot; [level=4] [ref=e55]
-      - paragraph [ref=e56]: We believe performance needs to be validated at every stage of the software development cycle and our open source compatible, massively scalable platform makes that a reality.
-    - generic [ref=e59]:
-      - heading &quot;Get in Touch&quot; [level=4] [ref=e60]
-      - paragraph [ref=e61]: &quot;Address: 2390 El Camino Real&quot;
-      - paragraph [ref=e62]: &quot;Phone: +440 123456&quot;
-      - paragraph [ref=e63]: &quot;Email: demo@blazemeter.com&quot;
-    - heading &quot;PRODUCT STORE&quot; [level=4] [ref=e67]:
-      - img [ref=e68]
-      - text: PRODUCT STORE
-  - contentinfo [ref=e69]:
-    - paragraph [ref=e70]: Copyright © Product Store
+    - generic [ref=e43]:
+      - generic [ref=e44]:
+        - generic [ref=e46]:
+          - link [ref=e47] [cursor=pointer]:
+            - /url: prod.html?idp_=1
+          - generic [ref=e48]:
+            - heading [level=4] [ref=e49]:
+              - link &quot;Samsung galaxy s6&quot; [ref=e50] [cursor=pointer]:
+                - /url: prod.html?idp_=1
+            - heading &quot;$360&quot; [level=5] [ref=e51]
+            - paragraph [ref=e52]: The Samsung Galaxy S6 is powered by 1.5GHz octa-core Samsung Exynos 7420 processor and it comes with 3GB of RAM. The phone packs 32GB of internal storage cannot be expanded.
+        - generic [ref=e54]:
+          - link [ref=e55] [cursor=pointer]:
+            - /url: prod.html?idp_=2
+          - generic [ref=e56]:
+            - heading [level=4] [ref=e57]:
+              - link &quot;Nokia lumia 1520&quot; [ref=e58] [cursor=pointer]:
+                - /url: prod.html?idp_=2
+            - heading &quot;$820&quot; [level=5] [ref=e59]
+            - paragraph [ref=e60]: The Nokia Lumia 1520 is powered by 2.2GHz quad-core Qualcomm Snapdragon 800 processor and it comes with 2GB of RAM.
+        - generic [ref=e62]:
+          - link [ref=e63] [cursor=pointer]:
+            - /url: prod.html?idp_=3
+          - generic [ref=e64]:
+            - heading [level=4] [ref=e65]:
+              - link &quot;Nexus 6&quot; [ref=e66] [cursor=pointer]:
+                - /url: prod.html?idp_=3
+            - heading &quot;$650&quot; [level=5] [ref=e67]
+            - paragraph [ref=e68]: The Motorola Google Nexus 6 is powered by 2.7GHz quad-core Qualcomm Snapdragon 805 processor and it comes with 3GB of RAM.
+        - generic [ref=e70]:
+          - link [ref=e71] [cursor=pointer]:
+            - /url: prod.html?idp_=4
+          - generic [ref=e72]:
+            - heading [level=4] [ref=e73]:
+              - link &quot;Samsung galaxy s7&quot; [ref=e74] [cursor=pointer]:
+                - /url: prod.html?idp_=4
+            - heading &quot;$800&quot; [level=5] [ref=e75]
+            - paragraph [ref=e76]: The Samsung Galaxy S7 is powered by 1.6GHz octa-core it comes with 4GB of RAM. The phone packs 32GB of internal storage that can be expanded up to 200GB via a microSD card.
+        - generic [ref=e78]:
+          - link [ref=e79] [cursor=pointer]:
+            - /url: prod.html?idp_=5
+          - generic [ref=e80]:
+            - heading [level=4] [ref=e81]:
+              - link &quot;Iphone 6 32gb&quot; [ref=e82] [cursor=pointer]:
+                - /url: prod.html?idp_=5
+            - heading &quot;$790&quot; [level=5] [ref=e83]
+            - paragraph [ref=e84]: It comes with 1GB of RAM. The phone packs 16GB of internal storage cannot be expanded. As far as the cameras are concerned, the Apple iPhone 6 packs a 8-megapixel primary camera on the rear and a 1.2-megapixel front shooter for selfies.
+        - generic [ref=e86]:
+          - link [ref=e87] [cursor=pointer]:
+            - /url: prod.html?idp_=6
+          - generic [ref=e88]:
+            - heading [level=4] [ref=e89]:
+              - link &quot;Sony xperia z5&quot; [ref=e90] [cursor=pointer]:
+                - /url: prod.html?idp_=6
+            - heading &quot;$320&quot; [level=5] [ref=e91]
+            - paragraph [ref=e92]: Sony Xperia Z5 Dual smartphone was launched in September 2015. The phone comes with a 5.20-inch touchscreen display with a resolution of 1080 pixels by 1920 pixels at a PPI of 424 pixels per inch.
+        - generic [ref=e94]:
+          - link [ref=e95] [cursor=pointer]:
+            - /url: prod.html?idp_=7
+          - generic [ref=e96]:
+            - heading [level=4] [ref=e97]:
+              - link &quot;HTC One M9&quot; [ref=e98] [cursor=pointer]:
+                - /url: prod.html?idp_=7
+            - heading &quot;$700&quot; [level=5] [ref=e99]
+            - paragraph [ref=e100]: The HTC One M9 is powered by 1.5GHz octa-core Qualcomm Snapdragon 810 processor and it comes with 3GB of RAM. The phone packs 32GB of internal storage that can be expanded up to 128GB via a microSD card.
+        - generic [ref=e102]:
+          - link [ref=e103] [cursor=pointer]:
+            - /url: prod.html?idp_=1
+          - generic [ref=e104]:
+            - heading [level=4] [ref=e105]:
+              - link &quot;Samsung galaxy s6&quot; [ref=e106] [cursor=pointer]:
+                - /url: prod.html?idp_=1
+            - heading &quot;$360&quot; [level=5] [ref=e107]
+            - paragraph [ref=e108]: The Samsung Galaxy S6 is powered by 1.5GHz octa-core Samsung Exynos 7420 processor and it comes with 3GB of RAM. The phone packs 32GB of internal storage cannot be expanded.
+        - generic [ref=e110]:
+          - link [ref=e111] [cursor=pointer]:
+            - /url: prod.html?idp_=2
+          - generic [ref=e112]:
+            - heading [level=4] [ref=e113]:
+              - link &quot;Nokia lumia 1520&quot; [ref=e114] [cursor=pointer]:
+                - /url: prod.html?idp_=2
+            - heading &quot;$820&quot; [level=5] [ref=e115]
+            - paragraph [ref=e116]: The Nokia Lumia 1520 is powered by 2.2GHz quad-core Qualcomm Snapdragon 800 processor and it comes with 2GB of RAM.
+        - generic [ref=e118]:
+          - link [ref=e119] [cursor=pointer]:
+            - /url: prod.html?idp_=3
+          - generic [ref=e120]:
+            - heading [level=4] [ref=e121]:
+              - link &quot;Nexus 6&quot; [ref=e122] [cursor=pointer]:
+                - /url: prod.html?idp_=3
+            - heading &quot;$650&quot; [level=5] [ref=e123]
+            - paragraph [ref=e124]: The Motorola Google Nexus 6 is powered by 2.7GHz quad-core Qualcomm Snapdragon 805 processor and it comes with 3GB of RAM.
+        - generic [ref=e126]:
+          - link [ref=e127] [cursor=pointer]:
+            - /url: prod.html?idp_=4
+          - generic [ref=e128]:
+            - heading [level=4] [ref=e129]:
+              - link &quot;Samsung galaxy s7&quot; [ref=e130] [cursor=pointer]:
+                - /url: prod.html?idp_=4
+            - heading &quot;$800&quot; [level=5] [ref=e131]
+            - paragraph [ref=e132]: The Samsung Galaxy S7 is powered by 1.6GHz octa-core it comes with 4GB of RAM. The phone packs 32GB of internal storage that can be expanded up to 200GB via a microSD card.
+        - generic [ref=e134]:
+          - link [ref=e135] [cursor=pointer]:
+            - /url: prod.html?idp_=5
+          - generic [ref=e136]:
+            - heading [level=4] [ref=e137]:
+              - link &quot;Iphone 6 32gb&quot; [ref=e138] [cursor=pointer]:
+                - /url: prod.html?idp_=5
+            - heading &quot;$790&quot; [level=5] [ref=e139]
+            - paragraph [ref=e140]: It comes with 1GB of RAM. The phone packs 16GB of internal storage cannot be expanded. As far as the cameras are concerned, the Apple iPhone 6 packs a 8-megapixel primary camera on the rear and a 1.2-megapixel front shooter for selfies.
+        - generic [ref=e142]:
+          - link [ref=e143] [cursor=pointer]:
+            - /url: prod.html?idp_=6
+          - generic [ref=e144]:
+            - heading [level=4] [ref=e145]:
+              - link &quot;Sony xperia z5&quot; [ref=e146] [cursor=pointer]:
+                - /url: prod.html?idp_=6
+            - heading &quot;$320&quot; [level=5] [ref=e147]
+            - paragraph [ref=e148]: Sony Xperia Z5 Dual smartphone was launched in September 2015. The phone comes with a 5.20-inch touchscreen display with a resolution of 1080 pixels by 1920 pixels at a PPI of 424 pixels per inch.
+        - generic [ref=e150]:
+          - link [ref=e151] [cursor=pointer]:
+            - /url: prod.html?idp_=7
+          - generic [ref=e152]:
+            - heading [level=4] [ref=e153]:
+              - link &quot;HTC One M9&quot; [ref=e154] [cursor=pointer]:
+                - /url: prod.html?idp_=7
+            - heading &quot;$700&quot; [level=5] [ref=e155]
+            - paragraph [ref=e156]: The HTC One M9 is powered by 1.5GHz octa-core Qualcomm Snapdragon 810 processor and it comes with 3GB of RAM. The phone packs 32GB of internal storage that can be expanded up to 128GB via a microSD card.
+        - generic [ref=e158]:
+          - link [ref=e159] [cursor=pointer]:
+            - /url: prod.html?idp_=8
+          - generic [ref=e160]:
+            - heading [level=4] [ref=e161]:
+              - link &quot;Sony vaio i5&quot; [ref=e162] [cursor=pointer]:
+                - /url: prod.html?idp_=8
+            - heading &quot;$790&quot; [level=5] [ref=e163]
+            - paragraph [ref=e164]: Sony is so confident that the VAIO S is a superior ultraportable laptop that the company proudly compares the notebook to Apple&#39;s 13-inch MacBook Pro. And in a lot of ways this notebook is better, thanks to a lighter weight.
+        - generic [ref=e166]:
+          - link [ref=e167] [cursor=pointer]:
+            - /url: prod.html?idp_=9
+          - generic [ref=e168]:
+            - heading [level=4] [ref=e169]:
+              - link &quot;Sony vaio i7&quot; [ref=e170] [cursor=pointer]:
+                - /url: prod.html?idp_=9
+            - heading &quot;$790&quot; [level=5] [ref=e171]
+            - paragraph [ref=e172]: REVIEW Sony is so confident that the VAIO S is a superior ultraportable laptop that the company proudly compares the notebook to Apple&#39;s 13-inch MacBook Pro. And in a lot of ways this notebook is better, thanks to a lighter weight, higher-resolution display, more storage space, and a Blu-ray drive.
+      - list [ref=e174]:
+        - listitem [ref=e175]:
+          - button &quot;Previous&quot; [ref=e176]
+        - listitem [ref=e177]:
+          - button &quot;Next&quot; [ref=e178] [cursor=pointer]
+  - generic [ref=e180]:
+    - generic [ref=e183]:
+      - heading &quot;About Us&quot; [level=4] [ref=e184]
+      - paragraph [ref=e185]: We believe performance needs to be validated at every stage of the software development cycle and our open source compatible, massively scalable platform makes that a reality.
+    - generic [ref=e188]:
+      - heading &quot;Get in Touch&quot; [level=4] [ref=e189]
+      - paragraph [ref=e190]: &quot;Address: 2390 El Camino Real&quot;
+      - paragraph [ref=e191]: &quot;Phone: +440 123456&quot;
+      - paragraph [ref=e192]: &quot;Email: demo@blazemeter.com&quot;
+    - heading &quot;PRODUCT STORE&quot; [level=4] [ref=e196]
+  - contentinfo [ref=e198]:
+    - paragraph [ref=e199]: Copyright © Product Store
 </code></pre>
 <h1>Test source</h1>
-<pre><code class="language-ts">  1  | import { Locator, Page, type Response, expect } from &#39;@playwright/test&#39;;
+<pre><code class="language-ts">  1  | import { expect } from &#39;@playwright/test&#39;;
   2  | 
-  3  | import { LoginModule } from &#39;../modules/loginModule&#39;;
-  4  | import { NavBarModule } from &#39;../modules/navBarModule&#39;;
-  5  | import { BasePage } from &#39;./basePage&#39;;
-  6  | 
-  7  | export class HomePage extends BasePage {
-  8  |   readonly navBar: NavBarModule;
-  9  |   readonly loginDialog: LoginModule;
-  10 |   readonly phones: Locator;
-  11 |   readonly laptops: Locator;
-  12 |   readonly monitors: Locator;
-  13 |   readonly cardTitle: Locator;
-  14 | 
-  15 |   constructor(page: Page) {
-  16 |     super(page);
-  17 |     this.navBar = new NavBarModule(this.page);
-  18 |     this.loginDialog = new LoginModule(this.page);
-  19 |     this.phones = this.page.getByRole(&#39;link&#39;, { name: &#39;Phones&#39; });
-  20 |     this.laptops = this.page.getByRole(&#39;link&#39;, { name: &#39;Laptops&#39; });
-  21 |     this.monitors = this.page.getByRole(&#39;link&#39;, { name: &#39;Monitors&#39; });
-  22 |     this.cardTitle = this.page.locator(&#39;h4[class=&quot;card-title&quot;]&#39;);
-  23 |   }
-  24 | 
-  25 |   /**
-  26 |    * Click on a category link
-  27 |    * Wait for the backend to respond with the items for the category
-  28 |    * Return the number of items returned by the backend.
-  29 |    * @param link - The link to click on.
-  30 |    * @param expectedCat - The expected category.
-  31 |    * @returns The number of items displayed for the category.
-  32 |    */
-  33 |   private async clickCategoryLink(link: Locator, expectedCat: string): Promise&lt;number&gt; {
-  34 |     let bycatResponse: Response | undefined;
-  35 |     const onResponse = (response: Response) =&gt; {
-  36 |       const request = response.request();
-  37 |       if (!response.url().includes(&#39;api.demoblaze.com/bycat&#39;)) return;
-  38 |       if (request.method() !== &#39;POST&#39;) return;
-  39 |       const body = request.postDataJSON() as { cat?: string } | null;
-  40 |       if (body?.cat !== expectedCat) return;
-  41 |       if (!response.ok()) return;
-  42 |       bycatResponse = response;
-  43 |     };
-  44 |     // Subscribe before the click so a fast bycat response is still observed.
-  45 |     this.page.on(&#39;response&#39;, onResponse);
-  46 |     await link.click();
-&gt; 47 |     await expect
-     |     ^ Error: Expected POST https://api.demoblaze.com/bycat with body cat=&quot;phone&quot; after category click
-  48 |       .poll(() =&gt; bycatResponse !== undefined, {
-  49 |         message: `Expected POST https://api.demoblaze.com/bycat with body cat=&quot;${expectedCat}&quot; after category click`,
-  50 |         timeout: 15000,
-  51 |         intervals: [500],
-  52 |       })
-  53 |       .toBe(true);
-  54 |     this.page.off(&#39;response&#39;, onResponse);
-  55 | 
-  56 |     const payload = (await bycatResponse!.json()) as { Items?: Array&lt;{ cat?: string }&gt; };
-  57 |     const itemCount = payload.Items?.length ?? 0;
-  58 |     expect(itemCount).toBeGreaterThan(0);
-  59 |     expect(payload.Items!.every(item =&gt; item.cat === expectedCat)).toBe(true);
-  60 |     return itemCount;
-  61 |   }
-  62 | 
-  63 |   async clickCategory(category: string): Promise&lt;number&gt; {
-  64 |     switch (category.toLowerCase()) {
-  65 |       case &#39;phones&#39;:
-  66 |         return await this.clickCategoryLink(this.phones, &#39;phone&#39;);
-  67 |       case &#39;laptops&#39;:
-  68 |         return await this.clickCategoryLink(this.laptops, &#39;notebook&#39;);
-  69 |       case &#39;monitors&#39;:
-  70 |         return await this.clickCategoryLink(this.monitors, &#39;monitor&#39;);
-  71 |       default:
-  72 |         throw new Error(`Unknown category: ${category}`);
-  73 |     }
-  74 |   }
-  75 | }
-  76 | 
+  3  | import { test } from &#39;../../utils/fixtures/ui&#39;;
+  4  | 
+  5  | test(
+  6  |   &#39;ID-000 | Verify items are displayed for each category&#39;,
+  7  |   { tag: [&#39;@regression&#39;, &#39;@desktop&#39;, &#39;@mobile&#39;] },
+  8  |   async ({ pageManager }) =&gt; {
+  9  |     const categories = [&#39;Phones&#39;, &#39;Laptops&#39;, &#39;Monitors&#39;];
+  10 | 
+  11 |     for (const [index, category] of categories.entries()) {
+  12 |       await test.step(`${index + 1}. Click on ${category} category and verify items are displayed`, async () =&gt; {
+  13 |         const itemCount = await pageManager.homePage.clickCategory(category);
+  14 |         expect(itemCount, `Verify items are displayed for ${category} category`).toBeGreaterThan(0);
+  15 |         await expect(
+  16 |           pageManager.homePage.cardTitle,
+  17 |           `Verify number of items displayed for ${category} category is the same as the number of items returned by the backend`,
+&gt; 18 |         ).toHaveCount(itemCount);
+     |           ^ Error: Verify number of items displayed for Phones category is the same as the number of items returned by the backend
+  19 |       });
+  20 |     }
+  21 |   },
+  22 | );
+  23 | 
+  24 | test(
+  25 |   &#39;ID-001 | Verify invalid phones are not visible&#39;,
+  26 |   { tag: [&#39;@regression&#39;, &#39;@desktop&#39;, &#39;@mobile&#39;] },
+  27 |   async ({ pageManager }) =&gt; {
+  28 |     await pageManager.homePage.clickCategory(&#39;phones&#39;);
+  29 |     const allCards = await pageManager.homePage.cardTitle.all();
+  30 | 
+  31 |     for (const card of allCards) {
+  32 |       const cardTitle = await card.innerText();
+  33 |       expect(cardTitle, `Phone with name &#39;${cardTitle}&#39; does not contain &#39;Invalid Phone&#39;`).not.toContain(
+  34 |         &#39;Invalid Phone&#39;,
+  35 |       );
+  36 |     }
+  37 |   },
+  38 | );
+  39 | 
 </code></pre>
