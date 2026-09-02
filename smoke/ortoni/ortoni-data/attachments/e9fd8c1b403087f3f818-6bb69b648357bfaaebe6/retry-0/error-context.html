@@ -10,13 +10,53 @@
 <li>Location: tests/frontend/login.spec.ts:6:1</li>
 </ul>
 <h1>Error details</h1>
-<pre><code>Error: browserType.launch: Executable doesn&#39;t exist at /ms-playwright/firefox-1532/firefox/firefox
-╔════════════════════════════════════════════════════════╗
-║ Looks like Playwright was just updated to 1.61.1.      ║
-║ Please update docker image as well.                    ║
-║ -  current: mcr.microsoft.com/playwright:v1.59.1-noble ║
-║ - required: mcr.microsoft.com/playwright:v1.61.1-noble ║
-║                                                        ║
-║ &lt;3 Playwright Team                                     ║
-╚════════════════════════════════════════════════════════╝
+<pre><code>Error: Verify login dialog title is hidden
+
+expect(locator).toBeHidden() failed
+
+Locator:  locator(&#39;[id=&quot;logInModalLabel&quot;]&#39;)
+Expected: hidden
+Received: visible
+Timeout:  10000ms
+
+Call log:
+  - Verify login dialog title is hidden with timeout 10000ms
+  - waiting for locator(&#39;[id=&quot;logInModalLabel&quot;]&#39;)
+    24 × locator resolved to &lt;h5 class=&quot;modal-title&quot; id=&quot;logInModalLabel&quot;&gt;Log in&lt;/h5&gt;
+       - unexpected value &quot;visible&quot;
+</code></pre>
+<pre><code class="language-yaml">- heading &quot;Log in&quot; [level=5]
+</code></pre>
+<h1>Test source</h1>
+<pre><code class="language-ts">  1  | import { Locator, Page, expect } from &#39;@playwright/test&#39;;
+  2  | 
+  3  | import { BaseModule } from &#39;./baseModule&#39;;
+  4  | 
+  5  | export class LoginModule extends BaseModule {
+  6  |   readonly modalTitle: Locator;
+  7  |   readonly username: Locator;
+  8  |   readonly password: Locator;
+  9  |   readonly close: Locator;
+  10 |   readonly loginButton: Locator;
+  11 | 
+  12 |   constructor(page: Page) {
+  13 |     super(page);
+  14 |     this.modalTitle = this.page.locator(&#39;[id=&quot;logInModalLabel&quot;]&#39;);
+  15 |     this.username = this.page.locator(&#39;input[id=&quot;loginusername&quot;]&#39;);
+  16 |     this.password = this.page.locator(&#39;input[id=&quot;loginpassword&quot;]&#39;);
+  17 |     this.close = this.page.getByRole(&#39;button&#39;, { name: &#39;Close&#39; });
+  18 |     this.loginButton = this.page.getByRole(&#39;button&#39;, { name: &#39;Log in&#39; });
+  19 |   }
+  20 | 
+  21 |   async loginUser(username: string, password: string) {
+  22 |     await expect(this.modalTitle, &#39;Verify login dialog title is visible&#39;).toBeVisible();
+  23 |     await expect(this.loginButton, &#39;Verify login button is visible&#39;).toBeVisible();
+  24 |     await this.username.fill(username);
+  25 |     await this.password.fill(password);
+  26 |     await this.loginButton.click();
+&gt; 27 |     await expect(this.modalTitle, &#39;Verify login dialog title is hidden&#39;).toBeHidden();
+     |                                                                          ^ Error: Verify login dialog title is hidden
+  28 |   }
+  29 | }
+  30 | 
 </code></pre>
