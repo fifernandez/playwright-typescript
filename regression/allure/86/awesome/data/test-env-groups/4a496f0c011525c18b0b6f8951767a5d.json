@@ -1,0 +1,1 @@
+{"id":"4a496f0c011525c18b0b6f8951767a5d","fullName":"tests/api/posts.spec.ts:52:3","name":"ID-102 | Verify Posts endpoint is returning a correct 200 response for a specific post","status":"passed","testResultsByEnv":{"default":"4ffb4882f0197003059b0e61fbfaad8a"}}
