@@ -1,4 +1,3 @@
-npm run pretest
-npm run check-style
-npm run lint
-npm run knip
+pnpm run lint-staged
+pnpm run pretest
+pnpm run knip

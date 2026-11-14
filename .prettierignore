@@ -3,3 +3,4 @@ node_modules/
 /playwright/.cache/
 *.log
 README.md
+pnpm-lock.yaml

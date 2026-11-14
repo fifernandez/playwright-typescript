@@ -24,7 +24,7 @@ concurrency:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-  PLAYWRIGHT_IMAGE: mcr.microsoft.com/playwright:v1.64.1-noble
+  PLAYWRIGHT_IMAGE: mcr.microsoft.com/playwright:v1.65.1-noble
 
 jobs:
   run:
@@ -34,6 +34,13 @@ jobs:
       ENV_NAME: ${{ inputs.env_name }}
     steps:
       - uses: actions/checkout@v6.0.2
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6.1.0
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.3.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
       - name: Create env file from secrets
         env:
           ENV_FILE_QA: ${{ secrets.ENV_FILE_QA }}
@@ -56,9 +63,10 @@ jobs:
             -v "${{ github.workspace }}:/work" \
             -w /work \
             -e CI \
+            -e HOME=/tmp \
             -e "env_name=$ENV_NAME" \
             "${{ env.PLAYWRIGHT_IMAGE }}" \
-            bash -ec "npm ci && npx playwright test --grep=@${{ inputs.suite }}"
+            bash -ec "npm install --prefix /tmp/pnpm-cli --cache /tmp/npm-cache pnpm@12.15.0 && export PATH=/tmp/pnpm-cli/node_modules/.bin:\$PATH && pnpm install --frozen-lockfile && pnpm exec playwright test --grep=@${{ inputs.suite }}"
       - name: Publish JUnit Test Report
         uses: mikepenz/action-junit-report@v6.4.0
         if: ${{ !cancelled() }}
@@ -133,7 +141,7 @@ jobs:
         run: |
           rm -rf out/reports/allure
           # Uses allurerc.mjs (historyPath: out/results/allure-history.jsonl)
-          npx allure generate ./out/results/allure --history-limit 20
+          pnpm dlx allure@3.33.0 generate ./out/results/allure --history-limit 20
       - name: Stamp Allure history URLs
         if: always()
         run: |

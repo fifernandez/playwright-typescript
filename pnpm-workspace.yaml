@@ -1,0 +1,31 @@
+# pnpm 12 reads project settings from here. .npmrc is only for registry auth.
+# 1440 minutes matches the previous npm min-release-age=1 (one day).
+minimumReleaseAge: 1440
+# 1.65.1 was published 2026-11-13, inside the one-day window.
+minimumReleaseAgeExclude:
+  - '@playwright/test'
+  - playwright
+  - playwright-core
+engineStrict: true
+
+allowBuilds:
+  sqlite3: true
+
+overrides:
+  '@humanfs/node': ^0.16.8
+  '@tootallnate/once': ^3.0.1
+  adm-zip: ^0.6.1
+  dompurify: ^3.4.17
+  fast-uri: ^3.1.9
+  # 5.11.2 is GHSA-474x-hrwr-fgx4. @allurereport/reader allows ^5.11.1.
+  fast-xml-parser: ^5.12.1
+  # 1.16.1 is GHSA-mrwp-f3q8-3g9p. axios allows ^1.16.0.
+  follow-redirects: ^1.16.3
+  # glob 9–14.0.1 is GHSA-3g3m-2fjr-6pw4. Allure still depends on ^13.
+  # Leave glob 7 (sqlite3/node-gyp) alone; its API does not match glob 14.
+  'glob@>=9 <14.0.2': ^14.0.6
+  # minimatch 7–10 is GHSA-g3hv-75wg-m249. ESLint still depends on ^10.
+  # Leave minimatch 3 (glob 7) alone; minimatch 11 changes Minimatch.set.
+  'minimatch@>=7 <11': ^11.0.8
+  qs: ^6.16.0
+  tar: ^7.5.22

@@ -21,16 +21,18 @@ Reports: [runs](https://fifernandez.github.io/playwright-typescript/)
 ```bash
 #1 - Clone the repo or manually download it.
 #2 - Open a console inside the repo folder
-#3 - Make sure you have Node correctly installed. If it is this command should display your node version:
+#3 - Use Node 26 (pinned in .nvmrc). With nvm: nvm install && nvm use
 node -v
-#3 - Install project dependencies:
-npm install
-#4 - Install Playwright:
-npx playwright install --with-deps
-#5 - Run the tests:
-npx playwright test --project=chrome --headed
-#6 - Open the report:
-npx playwright show-report
+#4 - Install pnpm 12.15.0 (this repo pins that version):
+npm install -g pnpm@12.15.0
+#5 - Install project dependencies:
+pnpm install
+#6 - Install Playwright:
+pnpm exec playwright install --with-deps
+#7 - Run the tests:
+pnpm exec playwright test --project=chrome --headed
+#8 - Open the report:
+pnpm exec playwright show-report
 ```
 
 ### For developers:
@@ -38,8 +40,8 @@ npx playwright show-report
 ## Intalation
 
 ```bash
-npm install
-npx playwright install --with-deps
+pnpm install
+pnpm exec playwright install --with-deps
 ```
 
 ## Runing the tests:
@@ -47,9 +49,9 @@ npx playwright install --with-deps
 This command will run all the test for all the available browsers in headless mode.
 
 ```bash
-npm run test
+pnpm test
 # or
-npx playwright test
+pnpm exec playwright test
 ```
 
 ## Parameters:
@@ -78,13 +80,13 @@ Default: when empty it will run for all.
 Note: When choosing backend it will run only backend tests, when choosing any of the browsers only frontend tests will be run.
 
 ```bash
-    npx playwright test --project=chrome
+    pnpm exec playwright test --project=chrome
 ```
 
 By default browser will be headless and will run in the background. If you want to see it:
 
 ```bash
-    npx playwright test --project=chrome --headed
+    pnpm exec playwright test --project=chrome --headed
 ```
 
 ### - Tests Tags:
@@ -92,13 +94,13 @@ By default browser will be headless and will run in the background. If you want 
 You can choose which test you want to run using test tags. Like:
 
 ```bash
-    npx playwright test --grep @smoke
+    pnpm exec playwright test --grep @smoke
 ```
 
 You can also use operators like:
 
 ```bash
-    npx playwright test --grep '@smoke|@regression'
+    pnpm exec playwright test --grep '@smoke|@regression'
 ```
 
 CI runs these via reusable workflow `.github/workflows/run-playwright.yml`. If you use branch protection required checks, the names are:
@@ -119,13 +121,13 @@ For seeing reports, after test execution run this commands.
 - Playwright:
 
   ```bash
-  npx playwright show-report out/reports/playwright
+  pnpm exec playwright show-report out/reports/playwright
   ```
 
 - Allure:
 
   ```bash
-  npm run allureReport
+  pnpm allureReport
   ```
 
   Archives each local run under `out/reports/allure/<n>/` (same idea as CI),
