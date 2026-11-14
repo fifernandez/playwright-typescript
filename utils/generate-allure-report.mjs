@@ -157,8 +157,8 @@ mkdirSync(allureDir, { recursive: true });
 rmSync(runDir, { recursive: true, force: true });
 
 const generate = spawnSync(
-  'npx',
-  ['allure', 'generate', resultsDir, '--output', runDir, '--history-limit', String(keepReports)],
+  'pnpm',
+  ['exec', 'allure', 'generate', resultsDir, '--output', runDir, '--history-limit', String(keepReports)],
   { cwd: root, stdio: 'inherit', shell: process.platform === 'win32' },
 );
 if (generate.status !== 0) {

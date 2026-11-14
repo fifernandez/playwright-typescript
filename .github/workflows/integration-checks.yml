@@ -16,13 +16,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6.0.2
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6.1.0
       - name: Setup Node.js
         uses: actions/setup-node@v6.3.0
         with:
-          node-version: 24.x
-          cache: 'npm'
-      - run: npm ci
-      - run: npm audit
-      - run: npm run pretest
-      - run: npm run lint
-      - run: npm run check-style
+          node-version-file: .nvmrc
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm audit
+      - run: pnpm pretest
+      - run: pnpm lint
+      - run: pnpm check-style
