@@ -10,53 +10,101 @@
 <li>Location: tests/frontend/login.spec.ts:6:1</li>
 </ul>
 <h1>Error details</h1>
-<pre><code>Error: Verify login dialog title is hidden
-
-expect(locator).toBeHidden() failed
-
-Locator:  locator(&#39;[id=&quot;logInModalLabel&quot;]&#39;)
-Expected: hidden
-Received: visible
-Timeout:  10000ms
-
-Call log:
-  - Verify login dialog title is hidden locator(&#39;[id=&quot;logInModalLabel&quot;]&#39;) with timeout 10000ms
-  - waiting for locator(&#39;[id=&quot;logInModalLabel&quot;]&#39;)
-    24 × locator resolved to &lt;h5 class=&quot;modal-title&quot; id=&quot;logInModalLabel&quot;&gt;Log in&lt;/h5&gt;
-       - unexpected value &quot;visible&quot;
+<pre><code>Test timeout of 60000ms exceeded while setting up &quot;Go to Home Page&quot;.
 </code></pre>
-<pre><code class="language-yaml">- heading &quot;Log in&quot; [level=5]
+<pre><code>Error: page.goto: Test timeout of 60000ms exceeded.
+Call log:
+  - navigating to &quot;https://www.demoblaze.com/&quot;, waiting until &quot;load&quot;
+</code></pre>
+<h1>Page snapshot</h1>
+<pre><code class="language-yaml">- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - link &quot;PRODUCT STORE&quot; [ref=e3] [cursor=pointer]:
+      - /url: index.html
+    - list [ref=e6]:
+      - listitem [ref=e7]:
+        - link &quot;Home (current)&quot; [ref=e8] [cursor=pointer]:
+          - /url: index.html
+          - text: Home
+          - generic [ref=e9]: (current)
+      - listitem [ref=e10]:
+        - link &quot;Contact&quot; [ref=e11] [cursor=pointer]:
+          - /url: &quot;#&quot;
+      - listitem [ref=e12]:
+        - link &quot;About us&quot; [ref=e13] [cursor=pointer]:
+          - /url: &quot;#&quot;
+      - listitem [ref=e14]:
+        - link &quot;Cart&quot; [ref=e15] [cursor=pointer]:
+          - /url: cart.html
+      - listitem [ref=e16]:
+        - link &quot;Log in&quot; [ref=e17] [cursor=pointer]:
+          - /url: &quot;#&quot;
+      - listitem
+      - listitem
+      - listitem [ref=e18]:
+        - link &quot;Sign up&quot; [ref=e19] [cursor=pointer]:
+          - /url: &quot;#&quot;
+    - generic [ref=e21]:
+      - list [ref=e22]:
+        - listitem [ref=e23] [cursor=pointer]
+        - listitem [ref=e24] [cursor=pointer]
+        - listitem [ref=e25] [cursor=pointer]
+      - img &quot;First slide&quot; [ref=e28]
+      - button &quot;Previous&quot; [ref=e29] [cursor=pointer]
+      - button &quot;Next&quot; [ref=e32] [cursor=pointer]
+  - generic [ref=e36]:
+    - generic [ref=e38]:
+      - link &quot;CATEGORIES&quot; [ref=e39] [cursor=pointer]:
+        - /url: &quot;&quot;
+      - link &quot;Phones&quot; [ref=e40] [cursor=pointer]:
+        - /url: &quot;#&quot;
+      - link &quot;Laptops&quot; [ref=e41] [cursor=pointer]:
+        - /url: &quot;#&quot;
+      - link &quot;Monitors&quot; [ref=e42] [cursor=pointer]:
+        - /url: &quot;#&quot;
+    - list [ref=e45]:
+      - listitem [ref=e46]:
+        - button &quot;Previous&quot; [ref=e47]
+      - listitem [ref=e48]:
+        - button &quot;Next&quot; [ref=e49] [cursor=pointer]
 </code></pre>
 <h1>Test source</h1>
-<pre><code class="language-ts">  1  | import { Locator, Page, expect } from &#39;@playwright/test&#39;;
+<pre><code class="language-ts">  1  | import { test as baseTest } from &#39;@playwright/test&#39;;
   2  | 
-  3  | import { BaseModule } from &#39;./baseModule&#39;;
+  3  | import { PageManager } from &#39;../../src/ui/pages/pageManager&#39;;
   4  | 
-  5  | export class LoginModule extends BaseModule {
-  6  |   readonly modalTitle: Locator;
-  7  |   readonly username: Locator;
-  8  |   readonly password: Locator;
-  9  |   readonly close: Locator;
-  10 |   readonly loginButton: Locator;
-  11 | 
-  12 |   constructor(page: Page) {
-  13 |     super(page);
-  14 |     this.modalTitle = this.page.locator(&#39;[id=&quot;logInModalLabel&quot;]&#39;);
-  15 |     this.username = this.page.locator(&#39;input[id=&quot;loginusername&quot;]&#39;);
-  16 |     this.password = this.page.locator(&#39;input[id=&quot;loginpassword&quot;]&#39;);
-  17 |     this.close = this.page.getByRole(&#39;button&#39;, { name: &#39;Close&#39; });
-  18 |     this.loginButton = this.page.getByRole(&#39;button&#39;, { name: &#39;Log in&#39; });
-  19 |   }
-  20 | 
-  21 |   async loginUser(username: string, password: string) {
-  22 |     await expect(this.modalTitle, &#39;Verify login dialog title is visible&#39;).toBeVisible();
-  23 |     await expect(this.loginButton, &#39;Verify login button is visible&#39;).toBeVisible();
-  24 |     await this.username.fill(username);
-  25 |     await this.password.fill(password);
-  26 |     await this.loginButton.click();
-&gt; 27 |     await expect(this.modalTitle, &#39;Verify login dialog title is hidden&#39;).toBeHidden();
-     |                                                                          ^ Error: Verify login dialog title is hidden
-  28 |   }
-  29 | }
-  30 | 
+  5  | type TestOptions = {
+  6  |   goToHomePage: string;
+  7  |   pageManager: PageManager;
+  8  |   isPhone: boolean;
+  9  | };
+  10 | 
+  11 | export const test = baseTest.extend&lt;TestOptions&gt;({
+  12 |   goToHomePage: [
+  13 |     async ({ page }, use) =&gt; {
+&gt; 14 |       await page.goto(&#39;/&#39;);
+     |                  ^ Error: page.goto: Test timeout of 60000ms exceeded.
+  15 |       await use(&#39;&#39;);
+  16 |     },
+  17 |     { auto: true, title: &#39;Go to Home Page&#39; },
+  18 |   ],
+  19 | 
+  20 |   pageManager: [
+  21 |     async ({ page }, use) =&gt; {
+  22 |       const pm = new PageManager(page);
+  23 |       await use(pm);
+  24 |     },
+  25 |     { title: &#39;Set up Page Manager&#39; },
+  26 |   ],
+  27 | 
+  28 |   isPhone: [
+  29 |     async ({ page, isMobile }, use) =&gt; {
+  30 |       const width = page.viewportSize()?.width;
+  31 |       const isPhone = isMobile &amp;&amp; width! &lt; 768;
+  32 |       await use(isPhone);
+  33 |     },
+  34 |     { auto: true, title: &#39;Set up isPhone&#39; },
+  35 |   ],
+  36 | });
+  37 | 
 </code></pre>
